@@ -1,0 +1,1295 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+
+
+\usepackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{subfig}
+\usepackage{tabularx}
+\usepackage{array,multirow,graphicx}
+\usepackage{float}
+\usepackage{color}
+\usepackage{cite}
+\usepackage{amssymb, extarrows}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amscd}
+\usepackage{enumerate}
+\usepackage{url}
+\usepackage{algorithm, algorithmic}
+%\usepackage[a4paper,left=2.5cm,right=2cm,top=1.8cm,bottom=1.8cm]{geometry}
+\usepackage{upquote}
+\usepackage{multicol}
+%\usepackage{hyperref}
+%\usepackage[nameinlink]{cleveref}
+%\usepackage{tikz}
+%\usepackage{mdframed}
+%\usepackage{textcomp}
+\usepackage{inputenc} 
+%\usepackage{graphicx}
+\usepackage{color}
+\usepackage[export]{adjustbox}
+\usepackage{parcolumns}
+
+
+\usepackage{mwe}
+%\usepackage{showframe}
+
+
+\renewcommand{\algorithmicrequire}{\normalsize \textbf{Input:}}
+\renewcommand{\algorithmicensure}{\normalsize \textbf{Output:}}
+\renewcommand{\algorithmicwhile}{\normalsize \textbf{while}}
+
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+%def
+\def\N{\mathbb{N}}
+\def\Z{\mathbb{Z}}
+\def\Q{\mathbb{Q}}
+\def\R{\mathbb{R}}
+\def\C{\mathbb{C}}
+\def\F{\mathbb{F}}
+
+\renewcommand\IEEEkeywordsname{Index Terms}
+\usepackage{color}
+\usepackage{listings} 
+\usepackage{xspace}  % to allow for text macros that don't eat space 
+\usepackage[misc,geometry]{ifsym}
+
+
+\lstdefinelanguage{Sage}[]{Python}
+{morekeywords={True,False,sage,singular},
+	sensitive=true}
+\lstset{frame=none,
+	showtabs=False,
+	showspaces=False,
+	showstringspaces=False,
+	commentstyle={\ttfamily\color{dredcolor}},
+	keywordstyle={\ttfamily\color{dbluecolor}\bfseries},
+	stringstyle ={\ttfamily\color{dgraycolor}\bfseries},
+	language = Sage,
+	basicstyle={\small \ttfamily},
+	aboveskip=.3em,
+	belowskip=.1em
+}
+\definecolor{dblackcolor}{rgb}{0.0,0.0,0.0}
+\definecolor{dbluecolor}{rgb}{.01,.02,0.7}
+\definecolor{dredcolor}{rgb}{0.8,0,0}
+\definecolor{dgraycolor}{rgb}{0.30,0.3,0.30}
+\newcommand{\dblue}{\color{dbluecolor}\bf}
+\newcommand{\dred}{\color{dredcolor}\bf}
+\newcommand{\dblack}{\color{dblackcolor}\bf}
+
+\renewcommand{\emph}[1]{{\dblack{#1}}}
+
+\newcommand{\Sage}{{\color{dbluecolor}\sf Sage}\xspace}
+
+
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+	\noindent\keywordname\enspace\ignorespaces#1}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{conjecture}{Conjecture}[section]
+\newtheorem{example}{Example}[section]
+\newtheorem{remark}{Remark}
+\newtheorem{proof}{Proof}
+
+%\pagestyle{plain} 
+\begin{document}
+	
+	\title{\textbf{A Blind Signature from Module Latices}
+}
+\author{\IEEEauthorblockN{1\textsuperscript{st} Huy Quoc Le}
+\IEEEauthorblockA{\textit{School of Computing and Information Security} \\
+\textit{University of Wollongong}\\
+NSW 2522, Australia \\
+qhl576@uowmail.edu.au}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Willy Susilo}
+\IEEEauthorblockA{\textit{Institute of Cybersecurity and Cryptology} \\
+	\textit{School of Computing and Information Security}\\
+		\textit{ University of Wollongong}\\
+	NSW 2522, Australia. \\
+	wsusilo@uow.edu.au}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Thanh Xuan Khuc}
+\IEEEauthorblockA{\textit{Institute of Cryptography Science and Technology} \\
+\textit{Government Information Security Committee}\\
+ Ha Noi, Viet Nam\\
+khucxuanthanh@gmail.com}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Minh Kim Bui}
+\IEEEauthorblockA{\textit{Ho Chi Minh University of Science,} \\
+	\textit{Vietnam National University}\\
+	Ho Chi Minh City, Viet Nam \\
+	kmath93@gmail.com}
+\and
+\IEEEauthorblockN{5\textsuperscript{th} Dung Hoang Duong}
+\IEEEauthorblockA{\textit{Institute of Cybersecurity and Cryptology} \\
+	\textit{School of Computing and Information Security}\\
+	\textit{ University of Wollongong}\\
+	NSW 2522, Australia. \\
+hduong@uow.edu.au}
+}
+
+\maketitle
+
+
+	\begin{abstract}
+		Since its birth by Chaum, blind signatures have become one of the fundamental components in the so-called e-cash or e-voting. The scheme ensures a message to be blinded before being signed. 
+		Among all lattice-based signatures submitted to NIST post-quantum cryptographic standardization, \textsf{Dilithium} is a very promising candidate. The scheme has some advantages such as simple to implement securely, conservative with parameters and minimal in total size of public key and signature. In this paper, we propose a blind signature scheme based on the framework of \textsf{Dilithium} in order to take advantages of  \textsf{Dilithium}. The proposed scheme is blind and one-more unforgeable secure in the random oracle model under the hardness of the module Learning with Errors   problem \textsf{MLWE} and the module short integer solution problem \textsf{MSIS}.
+	\end{abstract}
+	\begin{IEEEkeywords}
+Blind Signatures, Module Lattices, standardization 
+\end{IEEEkeywords}
+	
+	
+	\section{Introduction}
+	\subsection{Background}
+
+	In the purpose of mimicking the privacy features (e.g. untraceability, unlinkability, no double-spending) of the real coins or cashes, Chaum \cite{Chau83} proposed derivatives of digital signatures, named \textit{blind signatures}. Blind signatures enable a user to make his messages invisible to a signer before the messages are sent to the signer to be signed. %In other words, in a blind signature protocol, the signer is able to sign on the document without knowing what content of its.
+	 This property is useful and necessary in various application scenarios, especially, for example, in electronic system payments (e-cashes) or online e-voting systems, to name a few. 
+	 %Let go inside an online voting context with two parties: a voting center and a voter. For the first party, he will care about the problem of duplicate or counterfeit votes, while for the second party, he will worry about the problem regrading the anonymity of his vote. Digital signatures can address the first problem by  authenticating the owner of a vote which can be done by the third party, an election authority. However, it seems that the problem of the voter is not solved yet. The voter does not want any identification information of him to be leaked because of the sensitivity of the vote. One of solutions to the problem is from blind signatures that a vote should be blinded before authenticating by the election authority and of course the authority has to be capable of signing on this blinded vote. %Further, the voter should be still able to obtain a valid signature on the original vote. 
+	
+	
+	The first blind signature schemes based on RSA and the
+	hardness of the factoring problem were proposed by Chaum \cite{Chau83,Chau84, Chau88} aiming to create e-cash systems. He also proposed methods to avoid the double-spending problem. One of those methods is an
+	RSA-based online e-system where the number of spending of a coin is under control by the bank who posses the customer's databases. However, such an e-system was impractical due to the huge of databases and hence the very long runtime of checking if the coin has been spent or not. Chaum then used an RSA-based offline blind signature version. In 1994, Camenisch et al.  \cite{Cam95} proposed blind signature schemes based on the discrete logarithm problem one of which is a modification of Digital Signature Algorithm standardized by NIST. The other is a blinded version of the Nyberg-Rueppel digital signature scheme \cite{Nyberg93}. 
+	
+	The gradually recent realization of quantum computers warns us about the collapse in the near future of the current cryptographic systems of which security based on the problems still hard against the classical computers but will be easy to solve by quantum ones, as shown by Shor \cite{Shor97}. Among others, lattices promises a solution to the quantum-related problem. In fact, the hard lattice problems, such as the shortest
+	vector problem, are believed to be hard against even the strength of large-scale quantum computers which can break easily cryptographic systems that based on number-theoretic assumption like factoring problem or discrete logarithm problem.  The first lattice-based blind signature scheme was proposed by R{\"u}ckert \cite{Ruc10}. More specifically,  \cite{Ruc10} showed a method to  construct blind signatures scheme from the framework of Lyubashevsky’s identification scheme. The blind signature scheme of R{\"u}ckert are provably unconditionally blind and one-more unforgeable secure in the random oracle model. 
+
+%Some improvements and generalization with additional properties of blind signatures has been proposed, such as fair blind signatures  \cite{Stadler95}, partially blind signatures \cite{ Liu2007}, blind ring signatures \cite{Chan05}, etc.
+
+Many blind signature schemes are constructed by modifying an existing digital signature schemes. Thus, the efficacy of the blind signature schemes can be inherited from the digital counterparts. \textsf{Dilithium} \cite{DLL+17, DKL+19}, one of Round 2 candidates for NIST Post-quantum Standardization, is a compact and very efficient digital signature scheme. The construction of \textsf{Dilithium} is based on the rejection sampling, uniform sampling (instead of the expensive Gaussian sampling) and an additional technique to compress the public key. As a result, the total size of public key and signature size of  \textsf{Dilithium} is  the smallest of any signature scheme based on lattices that only uses uniform sampling. This makes \textsf{Dilithium} become a very promising candidate among others.
+
+		\subsection{Contribution} Our main contribution in this paper is to construct a blind signature scheme aiming to base on and take advantages of \textsf{Dilithium}. The difficulty of constructing a blind signature scheme from the framework of \textsf{Dilithium} is from the fact that we need some more materials to blind the message from the signer as well as to un-blind the blinded signature. Indeed, the only hint from the signer as in \textsf{Dilithium} is not sufficient for the correctness of the blind signature scheme. Our measure to the problem is giving one more hint coming from the user. The hint is defined from the materials used for blinding and un-blinding. %Furthermore, that makes us have to re-evaluate practical parameters for our scheme to work. 
+	\section{Preliminaries}
+	\subsection{Notations}
+	Throughout the paper, we follow most of the notations from \cite{DLL+17, DKL+19}. Let $q$ and $n$ be two integers. Let $R$, $R_q$ and $R_{\pm 1}$ are the rings of polynomials $\mathbb{Z}[X]/ \langle X^n+1 \rangle$ over $\mathbb{Z}$, $\mathbb{Z}_q[X]/ \langle X^n+1 \rangle$ over $\mathbb{Z}_q$ and $\{-1,0,1\}[X]/ \langle X^n+1 \rangle$ over $\{ -1,0,1\}$, respectively.  We use an italic small letter, e.g. $c$, for a polynomial in $R$. We write a \textit{column} vector in small bold, e.g. $\mathbf{v}$, and a matrix in capital bold, e.g. $\mathbf{A}$. The superscript $(\cdot)^t$ is for the transpose, such as $\mathbf{v}^t$, $\mathbf{A}^t$. 
+	
+	%For a discrete set $A$, we write $a \leftarrow_{\$} A$ to say that $a$ is chosen uniformly at random over $A$. For a distribution $\chi$,  $a \leftarrow \chi$ means that $a$ follows the distribution $\chi$. We write $\textsf{a} \leftarrow \textsf{A}$ to say that \textsf{a} is the output of probabilistic algorithm  $\textsf{A}$. If $\textsf{A}$ is a deterministic algorithm and \textsf{a} is its output, we write $\textsf{a} := \textsf{A}$ instead.   
+	
+	For a positive integer $s$, $[s]$ means $\{1, 2, \cdots, s\}$. For an integer $\alpha>0$, the centered reduction $r_0:=r \text{ mod}^{\pm} \alpha$ outputs the unique $r_0 \in (-\alpha/2, \alpha/2]$ if $\alpha$ is even, outputs the unique integer $r_0 \in [-(\alpha-1)/2, (\alpha-1)/2]$ if $\alpha$ is odd. By default, an integer $w$ modulo $q$, i.e., $w\in \mathbb{Z}_q$, is always reduced via the centered reduction; that is $w \text{ mod}^{\pm} q=w$.   The reduction $r_1:=r \text{ mod} ^{+} \alpha$ returns the unique integer $r_1 \in [0, \alpha)$ such that $r_1=r \text{ (mod } \alpha)$. We define $\Vert w\Vert_{\infty}$ as $\vert w \text{ mod }^{\pm}q\vert$ and as $\vert w \vert$ for $w\in \mathbb{Z}_q$ and for $w\in \mathbb{Z}$, respectively. 
+	%	For a polynomial $a=a_0+a_1X+\cdots +a_{n-1}X^{n-1} \in R$, $\Vert a\Vert _{\infty}=\max_i\Vert a_i\Vert _{\infty}$, $\Vert a\Vert _{1}=\sqrt{\Vert a_0\Vert _{\infty}+\cdots +\Vert a_{n-1}\Vert _{\infty}}$. 
+	For a vector $\mathbf{v}$, the Euclidean norm, the infinity norm and the $1$-norm of $\mathbf{v}$ are denoted by $\Vert \mathbf{v} \Vert$, $\Vert \mathbf{v} \Vert_1$, $\Vert \mathbf{v} \Vert_\infty$, respectively.  %$\Vert \mathbf{v} \Vert:=\sqrt{ \Vert v_1\Vert _{\infty}^2+\cdots+\Vert v_k\Vert _{\infty}}$, $\Vert \mathbf{v} \Vert_\infty:=\max_{i}\Vert v_i\Vert _{\infty}$, and $\Vert \mathbf{v} \Vert_1:=\sqrt{\Vert v_1\Vert _{\infty}+\cdots+\Vert v_k \Vert _{\infty}}$   %Correspondingly,  for a matrix $\Vert \mathbf{A} \Vert_{\infty}:=\max_i{\Vert \mathbf{a}_i \Vert_{\infty}}$ and $\Vert \mathbf{A} \Vert_{1}:=\max_i{\Vert \mathbf{a}_i \Vert_{1}}$. We have that $\Vert c\cdot \mathbf{a}\Vert_\infty \leq \Vert c \Vert_1 \cdot \Vert \mathbf{a}\Vert_\infty$.
+	For a polynomial $c\in R$, we abuse the notation $\Vert c\Vert:=\Vert \mathbf{c} \Vert$, $\Vert c\Vert_{\infty}:=\Vert \mathbf{c} \Vert_{\infty}$, and $\Vert c\Vert_{1}:=\Vert \mathbf{c} \Vert_{1}$, where $\mathbf{c}$ is the coefficient vector of $c$.
+	The number of non-zero coefficients, i.e. $\pm 1$'s,  of a polynomial  $c \in R_{\pm 1}$ is denoted by $\#(c)$.
+	For $r>0$ an integer, we write $S_{r}$ for the set $\{c\in R: \Vert c\Vert_{\infty} \leq r \}$, $B_r$ for the set $\{ c\in R_{\pm 1}: \#(c)=r \}$. Then, the cardinality of $B_r$ is $\vert B_r\vert=2^{r}\cdot$$ {n}\choose{r}$. The notation $\mathcal{A}\Rightarrow 1$ means that the algorithm $\mathcal{A}$ succeeds. We write $a \leftarrow \mathcal{A}^{\mathcal{B}, \mathcal{C}}$ to say that the algorithm $\mathcal{A}$ calls or interacts with other algorithms $\mathcal{B}$, $\mathcal{C}$ and finally gets the result $a$. 
+	
+	
+%	For a function $f$, if $\lim\limits_{\lambda \rightarrow \infty}f(\lambda)/\lambda^{\tau}=0$ for some constant $\tau>0$, then $f$ is called to be \textit{negligible} in $\lambda$ and denoted as $f=\textsf{negl}(\lambda)$. The logarithm $\log$ is with base $2$.
+	
+	\iffalse
+	\subsection{Lattices} \label{lat}
+	A \textit{lattice} is a set of all integral combination of given linearly independent vectors. Formally, given a matrix $\mathbf{A}=[\mathbf{a}_1, \cdots, \mathbf{a}_m]\in \mathbb{R}^{n \times m}$ such that $\mathbf{a}_i$'s are linearly independent, a lattice of \textit{basis} $\mathbf{A}$ is the set
+	$\mathcal{L}(\mathbf{A}):=\{\sum_{i \in [m]}\mathbf{a}_iz_i: z_i\in \mathbb{Z}\}$. For such a lattice, we call $n$ the \textit{dimension} of $\mathcal{L}(\mathbf{A})$.
+	Take for example, the following is also a lattice called \textit{$q$-ary lattice}: %$$\Lambda=\{\mathbf{v} \in \mathbb{Z}^m: \mathbf{v}=\mathbf{A}\mathbf{z} \text{ (mod } q) \text { for some } \mathbf{z} \in \mathbb{Z}^{n} \},$$  
+	\begin{equation}\label{eq12}
+	\Lambda_q^{\bot}(\mathbf{A})=\{\mathbf{z} \in \mathbb{Z}^m: \mathbf{A}\mathbf{z}=\mathbf{0} \text{ (mod } q), \text{ where } \mathbf{A} \leftarrow_{\$} \mathbb{Z}^{n \times m} \},
+	\end{equation}
+	for a random matrix $\mathbf{A} \leftarrow_{\$} \mathbb{Z}^{n \times m}$.
+	
+	\fi
+	\subsection{Lattices and Hardness Assumptions}
+	
+	A \textit{lattice} in $\mathbb{R}^n$ is defined as the set 
+	$\mathcal{L}(\mathbf{A}):=\{\sum_{i \in [n]}\mathbf{a}_iz_i: z_i\in \mathbb{Z}\}$ where $\mathbf{A}=[\mathbf{a}_1, \cdots, \mathbf{a}_n]\in \mathbb{R}^{n \times n}$ of $n$ linearly independent vectors is called a \textit{basis} of  $\mathcal{L}(\mathbf{A})$. % A lattice has infinitely many bases, however, a lattice will be completely defined if one of its bases is given. 
+	%The \textit{dual lattice} of a lattice $\mathcal{L}$ in $\mathbb{R}^n$ is the lattice $\widehat{\mathcal{L}}$ given by the set $\{\mathbf{y} \in \mathbb{R}^n:\langle \mathbf{x}, \mathbf{y}\rangle \in \mathbb{Z} \text{ for all }\mathbf{x} \in \mathcal{L} \}$.  
+	One of the most fundamental problems with respect to lattices is the \textit{shortest vector problem} (\textsf{SVP}) which requires to find the non-zero lattice vectors of shortest norm in a lattice given its basis. 
+	
+	For a random matrix $\mathbf{M} \leftarrow_{\$} \mathbb{Z}^{n \times m}$,  %$\mathbf{u} \leftarrow \mathbb{Z}^{ m}$, 
+	\begin{equation*}\label{eq}    \Lambda_q^{\bot}(\mathbf{M})=\{\mathbf{z} \in \mathbb{Z}^m: \mathbf{M}\mathbf{z}=\mathbf{0} \text{ (mod } q) \}, \end{equation*}
+	\begin{equation*}\label{eq111}    \Lambda_q(\mathbf{M})=\{\mathbf{u} \in \mathbb{Z}^m: \mathbf{u}= \mathbf{M}^t\mathbf{z} \text{ (mod } q) \text{ for some } \mathbf{z} \in \mathbb{Z}^n \} \end{equation*}
+	are lattices, usually mentioned in lattice-based cryptography as $q$-ary lattices. %Morever, we have $\Lambda_q^{\bot}(\mathbf{M})=q \widehat{\Lambda}_q(\mathbf{M})$ and  $\Lambda_q(\mathbf{M})=q\widehat{\Lambda_q^{\bot}}(\mathbf{M})$. 
+	
+	%Miciancio and Regev in \cite[Section 3]{MR09} showed that $m=\sqrt{n\log q/ \log \delta}$ is optimal for a lattice basis reduction algorithm of root Hermite factor $\delta$ in solving \textsf{SVP} in the $q$-ary lattice $\Lambda_q^{\bot}$. Then, one can find a short vector in $\Lambda_q^{\bot}$ of Euclidean norm at least $\min\{q, 2^{2\sqrt{n\log q \log \delta}}\}.$
+	
+	The security of our blind signature scheme will be based on the hardness assumption of the module version of  learning with errors (\textsf{MLWE}) and the short integer solution problem (\textsf{MSIS}). 
+	\iffalse
+	First, we recall the notions of the standard \textsf{LWE} and standard \textsf{SIS} which are defined over integers.
+	
+	\begin{definition}[\textsf{LWE$_{q,k,l}$}] \label{def4}
+		Let $q \geq 2$, $k, l$ be integers, and $\chi_{\mathbb{Z}} $ be a probability distribution over $\mathbb{Z}$. We define a distribution $\mathcal{L}_{q,k,l, \chi_{\mathbb{Z}} }$ as follows: Chooses a random matrix $\mathbf{A} \leftarrow_{\$} \mathbb{Z}_q^{k \times l}$, vectors $\mathbf{s}_1 \leftarrow \chi_{\mathbb{Z}} ^{l}$, $\mathbf{s}_2 \leftarrow \chi_{\mathbb{Z}} ^{k}$ and outputs $\mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2 \in \mathbb{Z}_q^{k}$. The decisional version $\mathsf{dLWE}_{q,k,l,\chi}$ is to distinguish a sample $(\mathbf{A}, \mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2) \leftarrow \mathcal{L}_{q,k,l, \chi_{\mathbb{Z} }}$ from a sample $(\mathbf{A}, \mathbf{t})  \leftarrow_{\$} \mathbb{Z}_q^{k \times l}\times  \mathbb{Z}_q^{k}$.  The search version $\mathsf{sLWE}_{q,k,l,\chi}$ consists in finding $\mathbf{s}_1$ and/or $\mathbf{s}_2$ given $(\mathbf{A}, \mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2) \leftarrow \mathcal{L}_{q,k,l, \chi_{\mathbb{Z}} }$. 
+	\end{definition}
+	
+	It is well-known that \textsf{dLWE} and \textsf{sLWE} are equivalent in terms of the hardness since one can construct efficient reductions between them  \cite{Reg09}.
+	
+	\begin{definition}[\textsf{SIS$_{q,k, l,\nu}$}] \label{def3}
+		Let $q \geq 2$, $k, l$ be positive integers. Given a random matrix $\mathbf{A} \leftarrow_{\$} \mathbb{Z}_q^{k \times l}$, $\mathbf{u} \leftarrow_{\$} \mathbb{Z}_q^{k}$ and a positive real number $\nu$, the short integer problem \textsf{SIS$_{q,k,l, \nu}$} is to find a vector $\mathbf{x}\in \mathbb{Z}^{k+l}$ such that $[\mathbf{A}\|\mathbf{I}_k]\cdot\mathbf{x} =\mathbf{u} \text{ (mod } q)$ and $\Vert \mathbf{x}\Vert_{\infty} \leq \nu.$
+	\end{definition}
+	
+	The \textsf{SIS} problem defined above is called inhomogeneous. The homogeneous of \textsf{SIS} is defined in the same way except that $\mathbf{u}=\mathbf{0}$ and $\mathbf{x}\neq \mathbf{0}$.  We can see that \textsf{SIS} has a very close relation to \textsf{SVP}  in the $q$-ary lattice  $\Lambda_q^{\bot}(\mathbf{A})=\{\mathbf{x} \in \mathbb{Z}^l: \mathbf{A}\mathbf{x}=\mathbf{0} \text{ (mod } q) \}.$ 
+	As mentioned above for the $q$-ary lattice $\Lambda_q^{\bot}$, $k+l=\sqrt{k\log q/\log \delta}$ is the best to an attacker using a lattice basis reduction of root Hermite factor $\delta$.
+	
+	\
+	For a positive integer $n$, let $R$ and $R_q$ are the rings of polynomials $\mathbb{Z}[X]/ \langle X^n+1 \rangle$ and $\mathbb{Z}_q[X]/ \langle X^n+1 \rangle$. Below, we generalize the definitions of \textsf{LWE} and \textsf{SIS} to that of the corresponding module variants in which $\mathbb{Z}$ will be replaced by $R$.
+	
+	\fi
+	\begin{definition}[\textsf{MLWE$_{q,k,l,\chi}$}] \label{def2}
+		Let $q \geq 2$, $k, l$ be positive integers, and $\chi $ be a probability distribution over $R$. A distribution $\mathcal{L}_{q,k,l, \chi}$ is defined as follows: Chooses a random matrix $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$, vectors $\mathbf{s}_1 \leftarrow \chi^{l}$, $\mathbf{s}_2 \leftarrow \chi^{k}$ and outputs $\mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2 \in R_q^{k}$. The decisional version $\mathsf{dMLWE}_{q,k,l,\chi}$ is to distinguish $(\mathbf{A}, \mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2) \leftarrow \mathcal{L}_{q,k,l, \chi}$ from $(\mathbf{A}, \mathbf{t})  \leftarrow_{\$} R_q^{k \times l}\times  R_q^{k}$.  The search version $\mathsf{sMLWE}_{q,k,l,\chi}$ requires to recover $\mathbf{s}_1$ and/or $\mathbf{s}_2$ given $(\mathbf{A}, \mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2) \leftarrow \mathcal{L}_{q,k,l, \chi}$. 
+	\end{definition}
+	
+	\begin{definition}[\textsf{MSIS$_{q,k,l, \nu}$}] \label{def1}
+		Let $q \geq 2$, $k, l$ be positive integers. Given a random matrix $\mathbf{A} \leftarrow_{\$}  R_q^{k \times l}$, $\mathbf{u} \leftarrow_{\$} R_q^{k}$ and a positive real number $\nu$, the (inhomogeneous) short integer problem \textsf{MSIS$_{q,k,l, \nu}$} is to find a vector $\mathbf{x}\in R^{k+l}$ such that $[\mathbf{A}\|\mathbf{I}_k]\cdot \mathbf{x} =\mathbf{u} \text{ (mod } q)$ and $\Vert \mathbf{x}\Vert_{\infty} \leq \nu.$ The homogeneous of \textsf{MSIS} is defined with $\mathbf{u}=\mathbf{0}$ and $\mathbf{x}\neq \mathbf{0}$.
+	\end{definition}
+	
+	In theory, the hardness of \textsf{MLWE} and \textsf{MSIS} is shown in \cite{LS15} saying that these average-case problems are at least as hard as standard lattice problems restricted to module lattices. Also, \cite{LS15} claims that there is converse reduction from the worst-case to the average-case for these module lattice problem. 
+	\iffalse
+	Also, in practice, we want to stress that, so far, the best known way to solving  Note that, we always can view any \textsf{MLWE$_{q,k,l,\chi}$} and and \textsf{MSIS$_{q,k,l,\nu}$}  as an $\textsf{LWE}_{q,nk,nl,\chi_{\mathbb{Z}}}$  instance and $\textsf{SIS}_{q,nk,nl,\nu}$ instance, respectively (see, e.g. \cite[Appendix C.2, C.3]{DKL+19}).  From such a perspective, it is well-khown that these two problems \textsf{dMLWE} and \textsf{sMLWE} are also equivalent in terms of the hardness as mentioned above.
+	\fi
+	\iffalse
+	%=============================
+	\subsection{Rejection Sampling} \label{resam}
+	We will use a variant of the so-called rejection sampling technique  for the discrete Gaussian distribution. This is an aborting technique that is typically used in lattice-based cryptography. Using this technique, one can determine when to stop and restart the interactive protocol in order to ensure that no information about the object we want to keep secret will be leaked. More specifically,  given a probability distribution $f$, and a positive constant $M$, we find another probability distribution $g$ such that
+	$f(z) \leq Mg(z)$ for almost $z$. Then sampling $z$ according to $g$ and outputting $z$ with probability $f(z)/ (Mg(z))$ ensures that $z$ follows $f$. If $z$ is not outputted the process must be restarted, and $M$ is the expected number of restarts to have a desired sample. So we should keep $M$ as small as possible. The following lemma focuses on the rejection sampling for the discrete Gaussian distributions. (For the general variant of this technique, see \cite[Lemma 4.7]{Lyu11}.)
+	
+	%	\begin{lemma}[Rejection Sampling, Lemma 4.7 in \cite{Lyu12}]	\label{lem3}
+	%	Given $f:\mathbb{Z}^n \rightarrow \mathbb{R}$ be a probability distribution and a subset $V\subset \mathbb{Z}^n$, we define on $V$ a probability distribution $h:V \rightarrow \mathbb{R}$. For each $\mathbf{v}\in V$, we denote by $g_\mathbf{v}:\mathbb{Z}^n \rightarrow \mathbb{R}$ a family of probability distributions satisfying that for almost $\mathbf{v}$'s from $h$, there exists a universal upper bound $M\in \mathbb{R}$ and a negligible $\epsilon$ such that
+	%		$$\Pr[Mg_\mathbf{v}(\mathbf{z}) \geq f(\mathbf{z}); \mathbf{z} \leftarrow f] \geq 1-\epsilon.$$ 
+	%	Then the outputs of the following two algorithms have a negligible statistical distance of  $\epsilon/M$:
+	%		\begin{enumerate}
+	%			\item (Algorithm $\mathcal{A}$): $\mathbf{v} \leftarrow h$, $\mathbf{z} \leftarrow g_\mathbf{v} $, output $(\mathbf{z}, \mathbf{v} )$ with probability $\min(\frac{f(\mathbf{z},)}{Mg_{\mathbf{v}}(\mathbf{z})},1)$, else fail.
+	%			\item (Algorithm $\mathcal{B}$): $\mathbf{v} \leftarrow h$, $\mathbf{z} \leftarrow f $, output $(\mathbf{z}, \mathbf{v} )$ with probability $\frac{1}{M}$.
+	%		\end{enumerate}
+	%	\end{lemma}
+	
+	
+	\subsection{Statistical Distance}
+%	\begin{definition}[Definition 8.5 in \cite{MG02}]. 
+		The statistical distance between two random variables $X$ and $X'$ over a countable $S$ is defined as
+		$$\Delta(X,X'):=\frac{1}{2}\sum_{x\in S}\vert \Pr[X=x]-\Pr[X'=x]\vert.$$
+		
+%	\end{definition}
+	
+%	Furthermore, it holds that $\Delta(X_1,X_3) \leq \Delta(X_1,X_2)+\Delta(X_2,X_3),$ for $X_1$, $X_2$ and $X_3$ three random variables over  $S$.
+	\fi	
+	
+	\subsection{Commitment Function: Hiding and Binding Properties}
+	A commitment function
+	$\mathsf{com}: \{0,1\}^* \times \{0,1\}^{\lambda} \rightarrow \{0,1\}^{\lambda},$  $(\mu,\mathbf{d}) \mapsto C$, maps a pair of strings to a commitment string. In this work, we assume that \textsf{com} is \textit{statistically hiding} and \textit{computationally binding}; see \cite{Ruc10} for more details. %The statistically hiding property says that the advantage of guessing $\mu$, given a commitment string $C:= \mathsf{com}(\mu, \mathbf{d})$, is not better than $1/\vert \mathcal{M}\vert$, i.e., that of a uniform guessing, where $\mathcal{M}$ is the space of all possible $\mu$. The computationally binding property states that it is impossible in polynomial time to look for one more $(\mu', \mathbf{d}')$ with $\mu' \neq \mu$ satisfying $C=\mathsf{com}(\mu', \mathbf{d}')$, given $C:=\mathsf{com}(\mu, \mathbf{d})$).
+	
+	
+	\subsection{Blind Signature Schemes and Security Games} \label{brs}
+	A blind signature $\textsf{BS}:=\{\textsf{Setup}, \textsf{KeyGen}, \textsf{Sign}, \textsf{Verify}\}$ consists of the following algorithms generally described as follows:
+	\begin{itemize}
+		\item $ \mathsf{par} \leftarrow \textsf{Setup}(1^{\lambda})$: \textsf{Setup}$(1^{\lambda})$ is a probabilistic polynomial-time (PPT) algorithm that on input a security parameter $\lambda$ generates a set of system parameters $\mathsf{par}$.
+		\item $(\textsf{pk},\textsf{sk}) \leftarrow \textsf{KeyGen}(\mathsf{par})$: This is a PPT algorithm that takes as input a set of system parameter $\mathsf{par}$ to output a public/secret key-pair $(\mathsf{pk},\mathsf{sk})$.
+		
+		\item $(\Sigma, \mathcal{V}) \leftarrow \textsf{Sign}(\mathsf{par},\mathsf{sk}, \textsf{pk},\mu)$:  \textsf{Sign} is an interaction protocol initiated by a user, say $\mathcal{U}(\textsf{pk},\mu)$, and a signer, say $\mathcal{S}(\mathsf{sk})$. In this protocol, the user blinds the message $\mu$ to have a blinded message $\mu^*$ then the signer is only allowed to sign on $\mu^*$. At the output phase, the user gets the signature $\Sigma$ for the original message $\mu$ while the signer only obtains a view $\mathcal{V}.$ It also might that $\Sigma=\bot$, a failure symbol if interaction is not successful.  
+		
+		\item $1/0 := \textsf{Verify}(\mathsf{par}, \mu, \Sigma, \textsf{pk})$:  On input the parameter set $\mathsf{par}$, the public key $\textsf{pk}$, the message $\mu$ and the signature $\Sigma$, \textsf{Verify} checks some specific conditions before outputting 1 if all conditions are fulfilled and 0 otherwise. 
+	\end{itemize}
+	
+	\textit{Correctness:} \textsf{BS} is called \textit{correct} if for  any $ (\textsf{pk},\textsf{sk}) \leftarrow \textsf{KeyGen}(\mathsf{par}),$ and $ 
+	(\Sigma, \mathcal{V}) \leftarrow \textsf{Sign}(\mathsf{par},\mathsf{sk}, \textsf{pk},\mu)$, we have
+	$$\Pr[\textsf{Verify}(\mathsf{par}, \mu, \Sigma, \textsf{pk})=1]=1.$$
+	
+	For security, a blind  signature scheme should be \textit{blind} and  \textit{one-more unforgeable}.  
+	%Blindness is to ensure that it is impossible for the signer to learn about any information of the message being signed by himself. The one-more unforgeability property is to guarantee that a user is not able to produce a number of valid signatures that is larger than the number of successfully real interaction with the signer.
+	We formally define these properties in Definition \ref{bli} and Definition \ref{on}  through the games $ \textsf{Blind}_{\textsf{BS}}^{\mathcal{S}^*}$ and  $\textsf{OMUF}_{\textsf{BS}}^{\mathcal{U}^*}$ (Figure \ref{tab1}, Figure \ref{tab2}) below.
+	
+	
+	
+	
+	%===========================
+	
+	\begin{definition}[Blindness] \label{bli}
+	%	A blind  signature scheme $\textsf{BS}=\{\textsf{Setup}, \textsf{KeyGen},$ $ \textsf{Sign}, \textsf{Verify}\}$ is blind if for any efficient algorithm  $S^*$ (who acts as a malicious signer) playing the so-called blindness game and wins the game with probability negligible in the security parameter $\lambda$. %The blindness game simulates the interaction between $\mathcal{S}^*$ and a challenger $\mathcal{C}$. %The main point of the game is the adversary suggests two messages and the challenger chooses only one of them to be signed. At the end, the adversary wins if he answers exactly which message was signed by himself. 
+		\iffalse
+		The game is below:
+		
+		\begin{enumerate}
+			\item  \textbf{Initial.} The adversary $\mathcal{S}^*$ chooses a security parameter $\lambda$, obtains $\mathsf{par}$ using \textsf{Setup}$(1^{\lambda})$. Then $\mathcal{S}^*$ invokes \textsf{KeyGen}$(\mathsf{par})$ to have the public key/secret key $\mathsf{pk}/ \mathsf{sk}$. 
+			\item \textbf{Challenge.} $\mathcal{S}^*$ selects and gives  the challenger $\mathcal{C}$ two messages $\mu_0$ and  $\mu_1$. The challenger $\mathcal{C}$ tosses a coin $b \in \{0, 1\}$ and initiates an interactive blind signature protocol with  $\mathcal{S}^*$ on input $\mu_b$. The adversary $\mathcal{S}^*$ plays the role the signer in the protocol and gets the view $\mathcal{V}$.
+			\item \textbf{Output.} The adversary $\mathcal{S}^*$ guesses whether $b$ is 0 or 1. He wins if his guess is right.
+			
+		\end{enumerate}
+		\fi
+		\textsf{BS} is \textit{blind} if for any efficient algorithm  $\mathcal{S}^*$,
+		$\Pr[\textsf{Blind}_{\textsf{BS}}^{\mathcal{S}^*}\Rightarrow 1]-1/2 \leq \textsf{negl}(\lambda).$
+		Particularly, \textsf{BS} is called \textit{perfectly blind} whenever $\Pr[\textsf{Blind}_{\textsf{BS}}^{\mathcal{S}^*}\Rightarrow 1]=1/2$. 
+	\end{definition}
+	
+
+	
+	\begin{definition}[One-more Unforgeability]   \label{on} 
+		 $\textsf{BS}$ is one-more unforgeable if for any efficient algorithm  $\mathcal{U}^*$, 
+		 $\Pr[\textsf{OMUF}_{\textsf{BS}}^{\mathcal{U}^*}\Rightarrow 1] \leq \textsf{negl}(\lambda).$  %wins this game with probability negligible in the security parameter $\lambda$. %In this game, the forger $\mathcal{U}^*$ will act the behavior of a malicious user trying to produce at least $s$ valid signature from  at most $s-1$ real interactions with the signing protocol.
+		\iffalse
+		\begin{enumerate}
+			\item \textbf{Setup.} The forger $\mathcal{U}^*$ gives a security parameter $\lambda$ to the challenger $\mathcal{C}$. The challenger $\mathcal{C}$ generates system parameters $\mathsf{par}$ by calling \textsf{Setup}$(1^{\lambda})$ and then outputs the key pair $(\mathsf{pk}, \mathsf{sk})$ using \textsf{KeyGen}$(\mathsf{par})$. Then $\mathcal{C}$ sends $\mathsf{par}$ and  $\mathsf{pk}$ to the forger $\mathcal{U}^*$. The key $\mathsf{sk}$ is kept secret.
+			\item \textbf{Queries.} $\mathcal{U}^*$ makes a sequence of hash queries and at most $s-1$ signing queries to the challenger in an adaptive manner: For each hash queries, the challenger has to reply with a consistently random value. For each signing query, the challenger must send back to $\mathcal{U}^*$ a valid signature. 
+			
+			\item \textbf{Output.} $\mathcal{U}^*$ outputs $s$ pairs of message/signature $ (\mu_1, \Sigma_1),$  $\cdots,$ $(\mu_s, \Sigma_s)$. He wins the game if
+			$\{\Sigma_i\}_{i \in [s]}$ are all valid and
+			$\mu_i \neq \mu_j $ for all $i, j \in [s], i \neq j$.
+			
+			
+		\end{enumerate}
+		\fi
+		
+	\end{definition}
+
+
+\begin{figure}[h]
+	\centering
+	\medskip
+	\smallskip
+	%	\raisebox{\dimexpr 0.6\baselineskip-\height}% align tops
+	\small\addtolength{\tabcolsep}{8pt}
+	\begin{tabular}{ |l |}
+		\hline
+		
+		$\underline{\text{ GAME } \textsf{Blind}_{\textsf{BS}}^{\mathcal{S}^*}}:$\\
+		1. $\textsf{par} \leftarrow_ {\mathcal{S}^*}^{\textsf{Setup}(1^{\lambda})}$, $(\mathsf{pk}, \mathsf{sk}) \leftarrow_ {\mathcal{S}^*}^{ \textsf{KeyGen}(\mathsf{par})}$\\
+		%	\hspace{0.3cm} 	// $\mathcal{S}^*$ calls $\textsf{Setup}(1^{\lambda})$ to get $\textsf{par}$ and calls  \textsf{KeyGen}(\textsf{par})	\\ 
+		%	\hspace{0.3cm}  to get $\mathsf{pk}, \mathsf{sk}$		\\
+		2.  $(\mu_0, \mu_1) \leftarrow \mathcal{S^*}(\mathsf{pk}, \mathsf{sk}) $ \hspace{0.3cm} // $\mathcal{S}^*$ chooses messages $\mu_0, \mu_1$\\
+		3. $b\leftarrow_{\$}\{0,1\}$, $\mathcal{U}_1:=\mathcal{U}(\textsf{pk},\mu_b)$, $\mathcal{U}_2:=\mathcal{U}(\textsf{pk},\mu_{1-b})$   \\
+		%\hspace{0.3cm}// Two users  \\
+		4. $(\Sigma_1, \Sigma_2) \leftarrow \mathcal{S^*}^{\mathcal{U}_1, \mathcal{U}_2} $\\ %\hspace{0.3cm} //  As a signer $\mathcal{S}^*$  interacts with \hspace{0.3cm} two users $\mathcal{U}_1, \mathcal{U}_2$	and obtains two signatures $\Sigma_1, \Sigma_2$ \\
+		5. $b' \leftarrow \mathcal{S^*}, b' \in \{0,1\}$\\ %\hspace{0.3cm}//  $\mathcal{S}^*$ guesses $b$  \\
+		6. \textbf{if} $b'=b$: \textbf{return} 1; \textbf{else}: \textbf{return} 0
+		\\
+		\hline 
+	\end{tabular} 
+	
+	\caption{Blindness game for \textsf{BS} %: The forger $\mathcal{U^*}$ playing the role of an adversarial user wins the game if he can generate $s$ valid signatures on $s$ distinct messages after a sequence of hash queries to the random oracle $H$ and  at most $s-1$ successful interactions with the signer $\mathcal{S}$.
+	}
+	\label{tab1}
+\end{figure}
+
+
+	
+			\begin{figure}[h]
+		\centering
+		\medskip
+		\smallskip
+		%	\raisebox{\dimexpr 0.6\baselineskip-\height}% align tops
+		\small\addtolength{\tabcolsep}{8pt}
+		\begin{tabular}{ |l |}
+			\hline
+	
+			
+			$\underline{\text{ GAME } \textsf{OMUF}_{\textsf{BS}}^{\mathcal{U}^*}}:$\\
+			1. $\textsf{par} \leftarrow_{\$} \textsf{Setup}(1^{\lambda})$\\
+			2. $(\mathsf{pk}, \mathsf{sk}) \leftarrow_{\$} \textsf{KeyGen}(\mathsf{par})$			\\
+			3. $(\mu_1, \Sigma_1),$  $\cdots,$ $(\mu_s, \Sigma_s) \leftarrow \mathcal{U^*}^{H,\mathcal{S}(\textsf{sk})}(\textsf{pk})$ after at most \\
+			\hspace{0.0cm} $s-1$ successful signing interactions with $\mathcal{S}(\textsf{sk})$\\
+			4. \textbf{if} $\textsf{Verify}(\mathsf{par}, \mu_i, \Sigma_i, \textsf{pk})=1, {\forall i \in [s]}$ \\
+			\hspace{0.2cm} 	and
+		$\mu_i \neq \mu_j $ for all $i, j \in [s], i \neq j$: \textbf{return} 1; \\
+		\hspace{0.3cm}	\textbf{else}: \textbf{return }0\\
+			\hline 
+		\end{tabular} 
+		
+		\caption{One-more unforgeability game for \textsf{BS} %: The forger $\mathcal{U^*}$ playing the role of an adversarial user wins the game if he can generate $s$ valid signatures on $s$ distinct messages after a sequence of hash queries to the random oracle $H$ and  at most $s-1$ successful interactions with the signer $\mathcal{S}$.
+		}
+		\label{tab2}
+	\end{figure}
+	
+	
+	
+	
+	
+	\subsection{\textsf{Dilithium} and Fundamental Algorithms} 	
+	 \textsf{Dilithium} is a compact and secure signature scheme using uniform sampling and rejection sampling inspired by the framework of the ``Fiat-Shamir with Aborts" technique proposed by Lyubashevsky \cite{Lyu09}. Due to limitation of space, we refer to \cite{DLL+17} for more details about the algorithms \textsf{Sam}, $\textsf{Power2Round}_q$, $\textsf{MakeHint}_q$, $\textsf{UseHint}_q$, $\textsf{Decompose}_q$, $\textsf{HighBits}_q$ and $\textsf{LowBits}_q$.
+	
+	
+	
+	
+	Now, we review some useful lemmas in the \textsf{Dilithium} paper \cite{DKL+19}. Corollary \ref{cor1} implied from Lemma \ref{lem1} will be 
+	useful for the correctness of our proposed blind signature scheme. 
+	\begin{lemma}[Lemma 1 in \cite{DKL+19}] \label{lem1}
+		Let $q$ and $\alpha$ be positive integers such that $q>2\alpha$, $q =1 \text{ (mod } \alpha)$
+		and $\alpha$ even. Suppose that $\mathbf{r}$ and $\mathbf{z}$ are vectors of integers in $\mathbb{R}_q$ where $\Vert \mathbf{z} \Vert_{\infty}\leq \frac{\alpha}{2}$. Let $ \mathbf{h}$ and $\mathbf{h}'$ be bit vectors. Then 
+		\begin{enumerate}
+			\item[i.] 
+			$\mathsf{UseHint}_q(\mathsf{MakeHint}_q(\mathbf{z},\mathbf{r},\alpha),\mathbf{r},\alpha) = \mathsf{HighBits}_q$ $(\mathbf{r}+\mathbf{z}, \alpha).$
+			\item[ii.] If  $\mathbf{v}_1=\mathsf{UseHint}_q(\mathbf{h},\mathbf{r},\alpha)$, then $\Vert  \mathbf{r}-\mathbf{v}_1\alpha\Vert_{\infty} \leq \alpha+1$. Furthermore, if the Hamming weight of $\mathbf{h}$ is $\omega$ then all but at most $\omega$ components of $\mathbf{r}-\mathbf{v}_1\alpha$ have magnitude of at most $\alpha/2$ after being  centered reduction modulo $q$.
+			\item[iii.] For any $\mathbf{h}$ and $\mathbf{h}'$, if $\mathsf{UseHint}_q(\mathbf{h},\mathbf{r},\alpha)=\mathsf{UseHint}_q(\mathbf{h}',\mathbf{r},\alpha)$ then $\mathbf{h}=\mathbf{h}'$.
+		\end{enumerate}
+	\end{lemma}
+	
+	\begin{corollary} \label{cor1}
+		Let $q$ and $\alpha$ be positive integers such that $q>2\alpha$, $q =1 \text{ (mod } \alpha)$
+		and $\alpha$ even. Suppose that $\mathbf{r}$, $\mathbf{z}$, $\mathbf{u}$ are vectors of integers in $\mathbb{R}_q$ where $\Vert \mathbf{z} \Vert_{\infty}\leq \frac{\alpha}{2}$. Then
+		\begin{equation*}
+		\begin{split}
+		&\mathsf{UseHint}_q(\mathsf{MakeHint}_q(\mathbf{z},\mathbf{r},\alpha),\mathbf{u}\cdot \alpha+ \mathbf{r},\alpha)\\
+		& =\mathbf{u}+\mathsf{HighBits}_q(\mathbf{r}+\mathbf{z}, \alpha).
+		\end{split}
+		\end{equation*}
+	\end{corollary}
+	\iffalse
+	\begin{proof}
+		Using the definitions of $\mathsf{MakeHint}_q$ and $\mathsf{UseHint}_q$ and Lemma \ref{lem1}(\textit{i}).
+		
+		To obtain the bit vector $\mathbf{h}:=\mathsf{MakeHint}_q(\mathbf{z},\mathbf{r},\alpha)$, we first compute $\mathbf{r}_1=\mathsf{HighBits}_q(\mathbf{r},\alpha)$ and $\mathbf{v}_1=\mathsf{HighBits}_q(\mathbf{r}+\mathbf{z},\alpha)$ and the we compare $\mathbf{r}_1$ and $\mathbf{v}_1$.
+		
+		To compute $\mathsf{UseHint}_q(\mathbf{h},\mathbf{u}\cdot \alpha+ \mathbf{r},\alpha)$, we first perform 
+		$\mathsf{Decompose}_q(\mathbf{u}\cdot \alpha+\mathbf{r}+\mathbf{z}, \alpha)=(\mathbf{u}_1,\mathbf{u}_0)$.  It is easy to see that to get $\mathbf{u}_1=\mathbf{u}+\mathbf{v}_1$ which is the high-order bits of $\mathbf{u}\cdot \alpha+\mathbf{r}+\mathbf{z}$.
+
+	\end{proof}
+	\fi
+	\begin{lemma}[Lemma 2 in \cite{DKL+19}] \label{lem10}
+		
+		If $\Vert \mathbf{s} \Vert_{\infty} \leq \beta$ and $\Vert \mathsf{LowBits}_q(\mathbf{r},\alpha) \Vert_{\infty} \le \frac{\alpha}{2}-\beta$ then
+		$$\mathsf{HighBits}_q(\mathbf{r},\alpha)=\mathsf{HighBits}_q(\mathbf{r}+\mathbf{s},\alpha).$$
+		
+	\end{lemma}
+	
+	\iffalse
+	\begin{lemma}[Lemma 3 in \cite{DKL+19}] \label{lem22}
+		If we have $$(\mathbf{r}_1,\mathbf{r}_0)=\mathsf{Decompose}_q(\mathbf{r}, \alpha),$$ 
+		$$ (\mathbf{w}_1,\mathbf{w}_0)=\mathsf{Decompose}_q(\mathbf{r}+\mathbf{s}, \alpha)$$
+		Then for some $0<\beta<\frac{\alpha}{2}$, we have $$\Vert \mathbf{r}_0+\mathbf{s}\Vert_{\infty}  \leq \frac{\alpha}{2}-\beta\Longleftrightarrow \Vert \mathbf{w}_0\Vert_{\infty} \leq \frac{\alpha}{2}-\beta \text{ and } \mathbf{r}_1=\mathbf{w}_1.$$
+		
+	\end{lemma}
+	
+	
+	\fi
+	
+	\section{\textsf{MBS}: A Blind Signature Scheme from \textsf{Dilithium}}
+	\label{brssc}
+	
+	\begin{algorithm}[pt]
+		\caption{\textsf{MBS.Setup($1^{\lambda}$)}}
+		\label{alg:1}
+		\begin{algorithmic}[1]
+			
+			\REQUIRE Security parameter $\lambda$
+			\ENSURE The set of system parameters and system functions $\mathsf{par}$ $= \{n, k, l,$  $d,$  $q, $ $\gamma_1,$ $ \gamma_2,$  $\alpha,$ $ \beta,$ $ \eta, \sigma,$  $\textsf{Sam},$ $ \textsf{UseHint}_q,$ $ \textsf{MakeHint}_q,$ $ \textsf{Decompose}_q, $ $ \textsf{Power2Round}_q,$ $ \textsf{HighBits}_q, \textsf{LowBits}_q,$  $ \text{ cryptographic hash function } H \}$
+			%	\STATE How to choose $n, k, l, d, q, \gamma_1, \gamma_2, \alpha, \beta, \eta, \sigma$ will be discuss in Section \ref{para} 
+			%	\STATE For the description of \textsf{Sam}, see \cite{DLL+17}. \cite{DKL+19} seperates  \textsf{Sam} into \textsf{ExpandA} and \textsf{ExpandMask}.
+			%		\STATE For the description of $\textsf{UseHint}_q,$ $ \textsf{MakeHint}_q,$  $\textsf{Decompose}_q,$  $ \textsf{Power2Round}_q,$  $ \textsf{HighBits}_q, \textsf{LowBits}_q,$ see \cite{DLL+17, DKL+19}; also, see Figure \ref{tab4} below. 
+		\end{algorithmic}
+		\label{setup}
+	\end{algorithm}
+	
+	
+	
+	
+	\begin{algorithm}[pt]
+		\caption{\textsf{MBS.KeyGen($\mathsf{par}$)}}
+		\label{alg:10}
+		\begin{algorithmic}[1]
+			
+			\REQUIRE $\mathsf{par}$ $= \{n, k, l,$  $d,$  $q, $ $\gamma_1,$ $ \gamma_2,$  $\alpha,$ $ \beta,$ $ \eta, \sigma,$  $\textsf{Sam},$ $ \textsf{UseHint}_q,$ $ \textsf{MakeHint}_q,$ $ \textsf{Decompose}_q, $ $ \textsf{Power2Round}_q,$ $ \textsf{HighBits}_q, \textsf{LowBits}_q,$  $ \text{ cryptographic hash function } H \}$
+			\ENSURE A key pair $(\mathsf{pk},\mathsf{sk})$
+			\STATE $\rho, \rho' \leftarrow_{\$} \{0,1\}^{n}$
+			\STATE $\mathbf{A} :=\textsf{Sam}(\rho)\in R_q^{k \times l}$
+			\STATE $\mathbf{s}_1, \mathbf{s}_2 :=\textsf{Sam}(\rho')\in S_\eta^{l} \times  S_\eta^{k}$
+			\STATE $\mathbf{t} :=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2 \in R_q^{k}$
+			\STATE $\mathbf{t}_1=\textsf{Power2Round}_q(\mathbf{t},d)$, i.e., $\mathbf{t}=\mathbf{t}_1 2^d+\mathbf{t}_0 \text{ (mod } q)$
+			\RETURN Public key $\textsf{pk}:=(\rho,\mathbf{t}_1)$ and secret key $\textsf{sk}:=(\rho,\mathbf{s}_1,\mathbf{s}_2,\mathbf{t}_0)$
+		\end{algorithmic}
+		\label{keygen}
+	\end{algorithm}
+	
+	Our proposed blind signature scheme \textsf{MBS} is constructed via the framework of \textsf{Dilithium} presented in \cite{DLL+17, DKL+19}. %Recall that in \textsf{Dilithium}, for correctness, it is sufficient for the signer to make a hint $\mathbf{h}$. However, for our blind scheme to be correct, besides the hint made by the signer, it needs one more hint $ \mathbf{u}_0$ coming from the user. 
+	
+	The algorithms \textsf{MBS.Setup}, \textsf{MBS.KeyGen}, \textsf{MBS.Sign} and \textsf{MBS.Verify} of \textsf{MBS} are detailed in Algorithms \ref{setup}-\ref{verify} and Figure \ref{fig1}. The scheme \textsf{MBS} works as follows: It gets started with \textsf{MBS.Setup} which takes a security parameter $\lambda$ as input and then output a set $\mathsf{par}$ of system parameters $n, k, l,$  $d,$  $q, $ $\gamma_1,$ $ \gamma_2,$  $\alpha,$ $ \beta,$ $ \eta, \sigma,$, system functions  $\textsf{Sam},$ $ \textsf{UseHint}_q,$ $ \textsf{MakeHint}_q,$ $ \textsf{Decompose}_q, $ $ \textsf{Power2Round}_q,$ $ \textsf{HighBits}_q, \textsf{LowBits}_q,$ and also a cryptographic hash function $H$. System functions are deployed to compress the size of public key and the size of signature in the same way as \textsf{Dilithium}. Afterwards, secret keys and public keys are generated by \textsf{MBS.KeyGen} using \textsf{par} via the same way as in \textsf{Dilithium}. The main algorithm \textsf{MBS.Sign} is an interactive signing protocol between a signer and a user in which the signer performs Phase 1, Phase 3 and Phase 5, while Phase 2 and Phase 4 are done by the user.  The processing flow of \textsf{MBS.Sign} is Phase 1 $\rightarrow$ Phase 2 $\rightarrow$ Phase 3 $\rightarrow$ Phase 4 $\rightarrow$ Phase 5.  The rejection sampling (aborting) technique is exploited in Step 10, Step 15, Step 17, Step 20 and Step 17 to guarantee the blindness of the proposed scheme. The validity of  signature will be then checked using \textsf{MBS.Verify} on input \textsf{par}, the message $\mu$ and its corresponding signature $\Sigma$. If $\Sigma$ is valid then \textsf{MBS.Verify} returns 1, otherwise it returns 0. 	
+	
+	
+	\iffalse
+	\begin{figure*}[pt]
+		\centering
+		\medskip
+		\smallskip
+		\raisebox{\dimexpr 0.6\baselineskip-\height}% align tops
+		
+		
+		
+		\small\addtolength{\tabcolsep}{-1.8pt}
+		
+		\begin{tabular}{|  l c l | }
+			\hline
+			\hline
+			\textbf{The signer} $\mathcal{S}(\mathsf{par},\rho,\mathbf{s}_1,\mathbf{s}_2,\mathbf{t}_1, \mathbf{t}_0)$ && \textbf{The user $\mathcal{U}(\mathsf{par},\mu,\rho, \mathbf{t}_1)$}\\
+			\hline
+			\hline
+			\textbf{\underline{Phase 1:}}&& \\
+			1. $\mathbf{A} :=\textsf{Sam}(\rho)\in R_q^{k \times l}$
+				&$\xlongrightarrow{\text{        $\mathbf{w}_1$             }} $& \textbf{\underline{Phase 2:}} \\
+			2. $r \leftarrow_{\$} \{0,1\} ^{n}, \mathbf{y}:=\textsf{Sam}(r) \in S^l_{\gamma_1-1}$&&	\\
+			3. $\mathbf{w}=\mathbf{A}\mathbf{y} \in R_q^{k}$&&	\\
+			4. $(\mathbf{w}_1, \mathbf{w}_0)=\textsf{Decompose}_q(\mathbf{w},2\gamma_2)$&&	\\
+			\hspace{0.5cm}	(i.e., $\mathbf{w}=2\gamma_2\mathbf{w}_1+\mathbf{w}_0 \text{ (mod } q)$)&&	\\
+			\hline
+			&$\xlongrightarrow{\text{        $\mathbf{w}_1$             }} $& \textbf{\underline{Phase 2:}} \\
+			&&5. $\mathbf{A} :=\textsf{Sam}(\rho)\in R_q^{k \times l}$\\
+			&&6. $\mathbf{a} \leftarrow_{\$} S_{\alpha}^l$ \\
+			&&7. $b \leftarrow_{\$} S_{\sigma}$\\
+			&&8. $\mathbf{d} \leftarrow_{\$} \{0,1\}^{n}$, $C:=\textsf{com}(\mu,\mathbf{d})$,\\
+			
+			&&	\hspace{0.4cm}$\mathbf{u}=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+\mathbf{t}_1b2^d \text{ (mod } q)$,\\
+			&& \hspace{0.4cm}$(\mathbf{u}_1,\mathbf{u}_0)=\textsf{Decompose}_q(\mathbf{u},2\gamma_2)$\\
+			&&\hspace{0.32cm}	(i.e., $\mathbf{u}=2\gamma_2\mathbf{u}_1+\mathbf{u}_0 \text{ (mod } q)$)	\\
+			&& 9. $c=H(\mathbf{u}_1, C) \in B_{\kappa}$\\
+			
+			&&10. $c^*=c+b$\\
+			&&11. \textbf{if} ($c^* \in S_{\sigma-1}$):  output $c^*$ \\
+			&&12. \textbf{else}: restart from \textbf{Phase 2}\\
+			\hline
+			\textbf{\underline{Phase 3:}}&$\xlongleftarrow{c^*}$&\\
+			
+			13. $\mathbf{z}=\mathbf{y}+c^*\mathbf{s}_1$&&\\
+			14. $\Vert c^*\mathbf{s}_i \Vert_\infty \leq \beta$, $i=1,2$ with &&\\
+			\hspace{0.5cm} overwhelming probability&&\\
+			15. $(\mathbf{r}_1,\mathbf{r}_0)=\textsf{Decompose}_q(\mathbf{w}-c^*\mathbf{s}_2, 2\gamma_2)$&&\\
+			\hspace{0.5cm}	(i.e.,$ \mathbf{w}-c^*\mathbf{s}_2=2\gamma_2\mathbf{r}_1+\mathbf{r}_0 \text{ (mod } q))$&&\\
+			
+			
+			16.  if ($\Vert\mathbf{z} \Vert_{\infty} \geq \gamma_1-\beta$ or $\Vert\mathbf{r}_0 \Vert_{\infty} \geq \gamma_2-\beta$&&  \\
+			\hspace{0.5cm} or $\mathbf{r}_1\neq \mathbf{w}_1 $):  restart from \textbf{Phase 1}&&  \\
+			17.	 $\mathbf{v}_0:=\mathbf{w}_0-c^*\mathbf{s}_2+c^*\mathbf{t}_0$&&  \\	 
+			\hspace{0.4cm} $\mathbf{h}:=\textsf{MakeHint}_q(-c^*\mathbf{t}_0,\mathbf{v}_0, 2\gamma_2)$&&  \\	
+			18.	 \textbf{if} ($\Vert c^*\mathbf{t}_0 \Vert_{\infty} \geq  \gamma_2$): restart from \textbf{Phase 1}&&  \\
+			\hline
+			&$\xlongrightarrow{\mathbf{z}, \mathbf{h}} $&\textbf{\underline{Phase 4:}}\\
+			&& 19. $\mathbf{z}^*=\mathbf{z}+\mathbf{a}$\\
+			&&20. \textbf{if} ($\Vert\mathbf{z}^* \Vert_{\infty} < \alpha+\beta-\gamma_1):$  \\
+			&&\hspace{1cm}  \textsf{result} $:= $ \textsf{accept}\\
+			
+			&& 21. \textbf{else}:  \textsf{result} $:= (\mathbf{a}, b, c, C, \mathbf{u}_0)$\\
+			&&22. \textbf{Output:} ($\mu$, $ \Sigma=(\mathbf{z}^*, c, \mathbf{d},$\\
+			&&\hspace{0.5cm}  $ \mathbf{h}, \mathbf{u}_0))$ or $\bot$ when \textsf{result }$\neq$ \textsf{accept}\\
+			
+			\hline 
+			\textbf{\underline{Phase 5:}}&$\xlongleftarrow{\textsf{        result      }}$&\\
+			
+			
+			23. \textbf{if} (\textsf{result} $\neq$ \textsf{accept}): &&\\
+			
+			24.	\hspace{0.5cm} 	Parse \textsf{result} $:= (\mathbf{a}, b, c, C, \mathbf{u}_0)$ &&\\
+			
+			25.			\hspace{0.5cm}
+			$\mathbf{u}=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+b\mathbf{t}_1 2^d$ (mod $q$)&&\\ 	\hspace{1.1cm}$\mathbf{u}_1=\textsf{HighBits}_q(\mathbf{u},2\gamma_2)$&&\\
+			26.	\hspace{0.5cm} $\widehat{\mathbf{u}}=\mathbf{A}\mathbf{a}+\mathbf{A}\mathbf{z}-c\mathbf{t}_1 2^d-\mathbf{u}_0$ (mod $q$)&&\\ 
+			\hspace{1cm}	$\widehat{\mathbf{u}}_1=\textsf{UseHint}_q(\mathbf{h},\widehat{\mathbf{u}}, 2\gamma_2)$&&\\ 
+			
+			27.		\hspace{0.5cm} \textbf{if} ($c^*-b=c=H(\mathbf{u}_1, C)$ &&\\
+			28.		\hspace{1.2cm}  and $c=H(\widehat{\mathbf{u}}_1, C)$ &&\\
+			29.		\hspace{1.2cm}  and $\Vert\mathbf{z}^* \Vert_{\infty} \geq \alpha+\beta-\gamma_1)$: &&\\
+			
+			30.		\hspace{1.8cm} restart from \textbf{Phase 1}&&\\
+			%	\hline
+			%	\textbf{\underline{Phase 6:}}&& \\
+			31.		\textbf{Output:} the view $\mathcal{V}=(\mathbf{w}_1,c^*,\mathbf{y}, \mathbf{z})$&& \\
+			\hline
+		\end{tabular}
+		
+		\medskip
+		\caption{The signing protocol \textsf{MBS.Sign}($\mathsf{par}, \textsf{sk},\mu, \textsf{pk}$)} 
+		\label{fig1}
+	\end{figure*}
+	
+	\fi
+	
+		\begin{figure*}[pt]
+		\centering
+		\medskip
+		\smallskip
+		\raisebox{\dimexpr 0.6\baselineskip-\height}% align tops
+		
+		
+		
+		\small\addtolength{\tabcolsep}{0pt}
+		
+		\begin{tabular}{|  l | l | }
+		
+			\hline
+			&\\
+			\underline{PHASES OF THE SIGNER $\mathcal{S}(\mathsf{par},\rho,\mathbf{s}_1,\mathbf{s}_2,\mathbf{t}_1, \mathbf{t}_0)$:} & \underline{PHASES OF THE USER $\mathcal{U}(\mathsf{par},\mu,\rho, \mathbf{t}_1):$}\\
+		
+			&\\
+			\textbf{\underline{Phase 1:}}& \textbf{\underline{Phase 2:}} \\
+			01. $\mathbf{A} :=\textsf{Sam}(\rho)\in R_q^{k \times l}$
+			&05. $\mathbf{A} :=\textsf{Sam}(\rho)\in R_q^{k \times l}$ \\
+			02. $r \leftarrow_{\$} \{0,1\} ^{n}, \mathbf{y}:=\textsf{Sam}(r) \in S^l_{\gamma_1-1}$, $\mathbf{w}=\mathbf{A}\mathbf{y} \in R_q^{k}$&06. $\mathbf{a} \leftarrow_{\$} S_{\alpha}^l$, $b \leftarrow_{\$} S_{\sigma}$	\\
+			03. $(\mathbf{w}_1, \mathbf{w}_0)=\textsf{Decompose}_q(\mathbf{w},2\gamma_2)$&07. $\mathbf{d} \leftarrow_{\$} \{0,1\}^{n}$, $C:=\textsf{com}(\mu,\mathbf{d})$,	\\
+			\hspace{0.5cm}	(i.e. $\mathbf{w}=2\gamma_2\mathbf{w}_1+\mathbf{w}_0 \text{ (mod } q)$)&	\hspace{0.4cm}$\mathbf{u}=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+\mathbf{t}_1b2^d \text{ (mod } q)$\\
+		
+		04. Send $\mathbf{w}_1$ to the user. The next is Phase 2 & \hspace{0.4cm}$(\mathbf{u}_1,\mathbf{u}_0)=\textsf{Decompose}_q(\mathbf{u},2\gamma_2)$\\
+			&\hspace{0.32cm}	(i.e. $\mathbf{u}=2\gamma_2\mathbf{u}_1+\mathbf{u}_0 \text{ (mod } q)$)	\\
+			\textbf{\underline{Phase 3:}} & 08. $c=H(\mathbf{u}_1, C) \in B_{\kappa}$, $c^*=c+b$\\
+			12. $\mathbf{z}=\mathbf{y}+c^*\mathbf{s}_1$ &09. \textbf{if} ($c^* \in S_{\sigma-1}$):  output $c^*$ \\
+				13. $\Vert c^*\mathbf{s}_i \Vert_\infty \leq \beta$, $i=1,2$ with overwhelming probability &10. \textbf{else}: restart from \textbf{Phase 2}\\
+			14. $(\mathbf{r}_1,\mathbf{r}_0)=\textsf{Decompose}_q(\mathbf{w}-c^*\mathbf{s}_2, 2\gamma_2)$ &11. Send $c^*$ back to the signer. The next is Phase 3\\
+			\hspace{0.5cm}	(i.e. $ \mathbf{w}-c^*\mathbf{s}_2=2\gamma_2\mathbf{r}_1+\mathbf{r}_0 \text{ (mod } q))$&\\
+		
+			15.  if ($\Vert\mathbf{z} \Vert_{\infty} \geq \gamma_1-\beta$ or $\Vert\mathbf{r}_0 \Vert_{\infty} \geq \gamma_2-\beta$ or $\mathbf{r}_1\neq \mathbf{w}_1 $): &\textbf{\underline{Phase 4:}}\\
+			
+			\hspace{1cm} restart from \textbf{Phase 1} &19. $\mathbf{z}^*=\mathbf{z}+\mathbf{a}$\\
+	16.	 $\mathbf{v}_0:=\mathbf{w}_0-c^*\mathbf{s}_2+c^*\mathbf{t}_0$, $\mathbf{h}:=\textsf{MakeHint}_q(-c^*\mathbf{t}_0,\mathbf{v}_0, 2\gamma_2)$	&20. \textbf{if} ($\Vert\mathbf{z}^* \Vert_{\infty} < \alpha+\beta-\gamma_1):$  \textsf{result} $:= $ \textsf{accept} \\
+	
+			17.	 \textbf{if} ($\Vert c^*\mathbf{t}_0 \Vert_{\infty} \geq  \gamma_2$): restart from \textbf{Phase 1}&21. \textbf{else}:  \textsf{result} $:= (\mathbf{a}, b, c, C, \mathbf{u}_0)$\\
+		18. Send $\mathbf{z}, \mathbf{h}$ to the user. The next is Phase 4 &22. \textbf{Output:} ($\mu$, $ \Sigma=(\mathbf{z}^*, c, \mathbf{d}, \mathbf{h}, \mathbf{u}_0))$\\
+			
+			
+			& \hspace{1cm} or $\bot$ when \textsf{result }$\neq$ \textsf{accept}  \\
+				\textbf{\underline{Phase 5:}}  & 23. Send $\textsf{        result      }$ back to the signer. The next is Phase 5 \\
+			 	
+
+				24. \textbf{if} (\textsf{result} $\neq$ \textsf{accept}): Parse \textsf{result} $:= (\mathbf{a}, b, c, C, \mathbf{u}_0)$&\\
+	
+			
+		25.			\hspace{0.5cm}
+		$\mathbf{u}=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+b\mathbf{t}_1 2^d$ (mod $q$)	&\\
+			
+			
+		\hspace{1.1cm}$\mathbf{u}_1=\textsf{HighBits}_q(\mathbf{u},2\gamma_2)$	&\\
+			
+			26.	\hspace{0.5cm} $\widehat{\mathbf{u}}=\mathbf{A}\mathbf{a}+\mathbf{A}\mathbf{z}-c\mathbf{t}_1 2^d-\mathbf{u}_0$ (mod $q$)&\\ 
+		
+			\hspace{1cm}	$\widehat{\mathbf{u}}_1=\textsf{UseHint}_q(\mathbf{h},\widehat{\mathbf{u}}, 2\gamma_2)$&\\ 
+			
+			27.		\hspace{0.5cm} \textbf{if} ($c^*-b=c=H(\mathbf{u}_1, C)$ and $c=H(\widehat{\mathbf{u}}_1, C)$ &\\
+					\hspace{1.5cm}  and $\Vert\mathbf{z}^* \Vert_{\infty} \geq \alpha+\beta-\gamma_1)$: restart from \textbf{Phase 1} &\\
+			
+		
+			%	\hline
+			%	\textbf{\underline{Phase 6:}}&& \\
+			28.		\textbf{Output:} the view $\mathcal{V}=(\mathbf{w}_1,c^*,\mathbf{y}, \mathbf{z})$& \\
+			\hline
+		\end{tabular}
+		
+		\medskip
+		\caption{The interactive signing protocol \textsf{MBS.Sign}($\mathsf{par}, \textsf{sk},\mu, \textsf{pk}$)} 
+		\label{fig1}
+	\end{figure*}
+	
+	
+	\subsection{About Hints}  \label{hints}
+	  The main difference between \textsf{Dilithium} and \textsf{MBS} is related to the blindness of \textsf{MBS}. Concretely, in order for \textsf{MBS} to blind a message and un-blind a blinded signature, we need to use masking factors $\mathbf{a}$ and $b$ (see Step 06 in Phase 2) generated by the user. Note also that the commitment sent from the signer to the user is not $\mathbf{w}$ but $\mathbf{w}_1$, the high bits of $\mathbf{w}$ (see Step 03 and 04 in Phase 1), and the second part of the public key is not $\textbf{t}$ but $\textbf{t}_1$, the high bits of $\mathbf{t}$ (see Algorithm \ref{keygen}).  Hence we maybe need one more hint, besides the first hint $\mathbf{h}$ coming from the signer, which is similar to \textsf{Dilithium} (see Step 16 in Phase 3). Naturally, the second hint should be from the user due to the use of masking factors. In \textsf{MBS}, the second hint $\mathbf{u}_0$ is given by the user and then packed into \textsf{result} in Step 21 to send to the signer. The hint $\mathbf{u}_0$ is also attached together with the first hint $\mathbf{h}$ into the output signature $\sigma$ of the user that will be used later in the verification algorithm (see Step 22 in Figure \ref{fig1} and Algorithm \ref{verify}). 
+	\subsection{Correctness and Number of Restarts}  \label{correct}
+	\subsubsection{Correctness.} To show the correctness of the \textsf{MBS} scheme, assuming that the signature $\Sigma \neq \bot$, we have to check that $\widehat{\mathbf{u}}_1=\textsf{UseHint}_q(\mathbf{h}, \mathbf{A}\mathbf{z}^* -c \mathbf{t}_1  2^d- \mathbf{u}_0,2\gamma_2)$ in Step 2 and Step 3 of Algorithm \ref{verify} and $\mathbf{u}_1$ computed in Step 7 of the signing protocol (see Figure \ref{fig1}) are the same. 
+	In Step 7 in Figure \ref{fig1}, we have
+	$$\mathsf{Decompose}_q(\mathbf{w}_1\cdot 2\gamma_2+\mathbf{A}\mathbf{a}+b\mathbf{t}_1 2^d, 2\gamma_2)=(\mathbf{u}_1, \mathbf{u}_0).$$
+	That is, 
+	$\mathbf{w}_1\cdot 2\gamma_2+\mathbf{A}\mathbf{a}+b\mathbf{t}_1 2^d- \mathbf{u}_0=\mathbf{u}_1\cdot 2\gamma_2 \text{ (mod } q).$
+	Now we will show that 
+	\begin{equation*}\label{key3}
+	\widehat{\mathbf{u}}_1=\mathsf{UseHint}_q(\mathbf{h},\mathbf{A}\mathbf{z}^*-c\mathbf{t}_1 2^d-\mathbf{u}_0, 2\gamma_2)=\mathbf{u}_1.
+	\end{equation*}
+	Indeed, we have
+	\begin{align*}
+&	\mathbf{A}\mathbf{z}^*-c\mathbf{t}_1 2^d-\mathbf{u}_0 \\&=\mathbf{A}\mathbf{a}+\mathbf{w}+b\mathbf{t}_12^d-\mathbf{u}_0 -c^*\mathbf{s}_2+c^*\mathbf{t}_0 \text{ (mod } q)\\
+	&=(\mathbf{w}_1\cdot 2\gamma_2 + \mathbf{A}\mathbf{a}+b\mathbf{t}_12^d-\mathbf{u}_0 ) \\ &\hspace{2cm}+(\mathbf{w}_0-c^*\mathbf{s}_2+c^*\mathbf{t}_0) \text{ (mod } q)\\
+	&=\mathbf{u}_1\cdot 2\gamma_2 + (\mathbf{w}_0-c^*\mathbf{s}_2+c^*\mathbf{t}_0) \text{ (mod } q).
+	\end{align*}
+	%Equation \eqref{key3} becomes\begin{equation}\label{key2} c=H(\mathsf{HighBits}(\mathbf{w}-c^*\mathbf{s}_2+c^*\mathbf{t}_0+\mathbf{A}\mathbf{a}+b\mathbf{t}_12^d, 2\gamma_2), \mathsf{com}(\mu,\mathbf{t'})). \end{equation}
+	It is guaranteed by Step 14 and Step 15 in Figure \ref{fig1} that 
+	$\mathsf{HighBits}_q(\mathbf{w}-c^*\mathbf{s}_2, 2\gamma_2)=\mathbf{w}_1,$
+	and that
+	\begin{equation*}\label{keyq}
+	\Vert \mathbf{w}_0-c^*\mathbf{s}_2 \Vert_{\infty}:=\Vert \mathsf{LowBits}_q(\mathbf{w}-c^*\mathbf{s}_2, 2\gamma_2) \Vert_{\infty} <\gamma_2-\beta,
+	\end{equation*}
+	i.e., $\textsf{HighBits}_q(\mathbf{w}_0-c^*\mathbf{s}_2, 2\gamma_2)=\mathbf{0},$ the zero vector.
+	With 
+	$\mathbf{h}=\mathsf{MakeHint}_q(-c^*\mathbf{t}_0,\mathbf{w}_0-c^*\mathbf{s}_2+c^*t_0, 2\gamma_2)$ and $\Vert c^*\mathbf{t}_0\Vert_{\infty} \leq \gamma_2$, using Corollary \ref{cor1}, we obtain
+\begin{equation*}
+	\begin{split}
+	&	\mathsf{UseHint}_q(\mathbf{h},\mathbf{u}_1\cdot 2\gamma_2 +\mathbf{w}_0-c^*\mathbf{s}_2+c^*\mathbf{t}_0,2\gamma_2)\\&=\mathbf{u}_1+\textsf{HighBits}_q(\mathbf{w}_0-c^*\mathbf{s}_2, 2\gamma_2)=\mathbf{u}_1.
+	\end{split}
+\end{equation*}
+	
+		\subsubsection{Number of Restarts} We need the following lemma to estimate the probability of restarts that might happen in \textsf{MBS} scheme.
+	\begin{lemma} [Adapted from Lemma 3.1 in \cite{Ruc08}] \label{blindne}
+		Let $n$ be a sufficient large integer and $\mathbf{a}, \mathbf{b} \in \mathbb{Z}^n$ with arbitrary $\mathbf{a} \in \{  \mathbf{v} \in \mathbb{Z}^n: \Vert  \mathbf{v}\Vert_{\infty}\leq A\}$ and random $\mathbf{b} \leftarrow_{\$} \{  \mathbf{v} \in \mathbb{Z}^n: \Vert  \mathbf{v}\Vert_{\infty}\leq B\}$. Given $B\geq n\cdot\phi \cdot A$ for $\phi \in \mathbb{N}$ $ (\phi >0)$, we have 
+		$$\Pr_{\mathbf{b} }[\Vert \mathbf{a}+\mathbf{b} \Vert_{\infty} \leq B-A]=\left(1-\frac{2A}{2B+1} \right)^n \approx e^{-1/\phi}.$$
+	\end{lemma}
+	
+	
+	
+ Now we consider the number of restarts of the proposed scheme. 
+	
+	\begin{itemize}
+		\item \textit{Restarts in Step 10}: They happen locally to guarantee that $c^*$ is independent  of $c$. This ensures the blindness of our scheme. And the restarts in Step 10 follow Lemma \ref{blindne}: \begin{equation}\label{k}
+		\Pr_{b }[\Vert c+b \Vert_{\infty} \leq \sigma-1]=\left(1-\frac{2}{2\sigma+1} \right)^n \approx e^{-n /\sigma}.
+		\end{equation}
+		
+		\item \textit{Restarts in Step 15:} The same as in \cite[Subsection 3.3]{DKL+19}, except that we replace $c$ by $c^*$. 
+		\begin{itemize}
+			\item The probability of $\Vert\mathbf{z} \Vert_{\infty} < \gamma_1-\beta$ is still $\left(1-\frac{\beta}{\gamma_1-1/2} \right)^{ln} \approx e^{-n\beta l/\gamma_1}.$
+			\item The probability of $\Vert\mathbf{r}_0 \Vert_{\infty} < \gamma_2-\beta$ is still $\left(1-\frac{\beta+1/2}{\gamma_2} \right)^{kn} \approx e^{-n\beta k/\gamma_2}.$
+			\item Note that, $\beta$ is set up such that \begin{equation}\label{k2}
+			\Vert c^*\mathbf{s}_i \Vert_{\infty} \leq \beta, \text{ for } i=1,2,
+			\end{equation} with overwhelming probability (Step 13 in Figure \ref{keygen}) (see also \cite[Section 4.4]{DLL+17} to know the role of $\beta$ and how to choose it). Due to Lemma \ref{lem10}, if $\Vert c^*\mathbf{s}_2 \Vert_{\infty} < \beta$ and $\Vert\mathbf{r}_0 \Vert_{\infty} < \gamma_2-\beta$ then $\mathbf{r}_1=\mathbf{w}_1$ with overwhelming probability.
+		\end{itemize}
+		Thus, the probability that Step 15 passes is \begin{equation}\label{k3}
+		\Pr[\text{Step 15 passes}]\approx e^{-n\beta( l/\gamma_1+k/\gamma_2)}.
+		\end{equation}
+		\item  \textit{Restarts in Step 17:}  We will set up the parameters such that \begin{equation}\label{k16}
+		\Vert c^*\mathbf{t}_0 \Vert_{\infty} \leq \gamma_2-1,
+		\end{equation} with overwhelming probability
+		
+		\item  \textit{Restarts in Step 27 in Phase 5:}  We only care about the condition $\Vert\mathbf{z}^* \Vert_{\infty} \geq \alpha+\beta-\gamma_1$ which might be caused by the rejection sampling. Assumed that $\gamma_1-\beta \ll \alpha$, applying again Lemma \ref{blindne}, we have \begin{equation}\label{k4}
+		\begin{split}
+		\Pr_{b }[\Vert \mathbf{z}^* \Vert_{\infty} \leq \alpha +\beta-\gamma_1] &=\left(1-\frac{2\gamma_1-2\beta+ 1}{2\alpha+1} \right)^{nl}\\& \approx e^{-(\gamma_1-\beta) nl/\alpha}.
+		\end{split}
+		\end{equation}
+	\end{itemize}
+	
+	\begin{algorithm}[pt]
+		\caption{\textsf{MBS.Verify}($\mathsf{par},\mu, \Sigma$)} \label{alg:3}
+		
+		\begin{algorithmic}[1]
+			\REQUIRE $\mathsf{par}$, $\mu, \Sigma= (\mathbf{z}^*,c, \mathbf{d}, \mathbf{h}, \mathbf{u}_0)$, $\textsf{PK}=( \rho,\mathbf{t}_1)$
+			\ENSURE  1 or 0
+			
+			\STATE $\mathbf{A} :=\textsf{Sam}(\rho)\in R_q^{k \times l}$
+			\STATE $\widehat{\mathbf{u}}_1=\textsf{UseHint}_q(\mathbf{h}, \mathbf{A}\mathbf{z}^* -c \mathbf{t}_1  2^d- \mathbf{u}_0,2\gamma_2)$
+			\STATE $c'=H(\widehat{\mathbf{u}}_1, \mathbf{com}(\mu, \mathbf{d}))$
+			\IF {$c'=c$ and $ \Vert \mathbf{z}^*\Vert_{\infty} \leq \alpha+\beta-\gamma_1$}
+			\RETURN 1
+			\ELSE
+			\RETURN 0
+			\ENDIF
+			
+		\end{algorithmic}
+		\label{verify}
+	\end{algorithm}
+	\normalsize
+	
+	
+	
+	\subsection{ Min-entropy and Zero Knowledge Proof}  \label{minen}
+	
+	
+	\begin{definition}[Definition 2.6 in \cite{KLS18}] 
+		If the most likely value of a random variable $W$ that is chosen from a discrete distribution $D$ occurs with probability $2^{-\epsilon}$, then we say that $\textsf{min-entropy}(W|W \leftarrow D)=\epsilon$.
+	\end{definition}
+	
+	First, we recall a lemma relating to the min-entropy of \textsf{Dilithium}. 
+	
+	\begin{lemma}[Lemma C.1 in \cite{KLS18}] \label{lem3} 
+		Given $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$ and $\mathbf{y}\leftarrow_{\$} S_{\gamma_1-1}^l$. Then
+		%Given a matrix $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$. Then with probability at least $1-(1/q)^{kl}$, one of $k\cdot l$ polynomials in the matrix $\mathbf{A}$ is invertible. For all $\mathbf{A} \in R_q^{k \times l}$ that contain at least one invertible polynomial, we have, for any $\mathbf{w}_1 \in R_q^k$, that
+		\begin{equation}
+		\begin{split}
+		&\Pr_{\mathbf{A}}\left[ \forall \mathbf{w}_1:\Pr_{\mathbf{y}}[\mathsf{HighBits}_q(\mathbf{A} \mathbf{y}, 2\gamma_2)=\mathbf{w}_1] \leq \left(\frac{2\gamma_2+1}{2\gamma_1-1}\right)^n\right] \\
+		&> 1-(1/q)^{kl}. \label{k18}
+		\end{split}
+	\end{equation}
+	\end{lemma}
+	
+	
+	\begin{proof}[of Lemma \ref{lem3}]
+		
+		For a matrix $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$, with probability at least $1-(1/q)^{kl}$, one of $k\cdot l$ polynomials in the matrix $\mathbf{A}$ is invertible over $R_q$. 
+		Assume that $[A_1,\cdots, A_l]$ is the row of $\mathbf{A}$ that contains the invertible polynomial, say without loss of generality $A_1$. Let call $T$ the set of all integers $w$ such that  $\mathsf{HighBits}_q(w, 2\gamma_2)=w_1$. Then the size of $T$ is at most $(2\gamma_2+1)^n$ (which is the number of possibility of $w_0$ such that $(w_1,w_0)=\textsf{Decompose}_q(w,2\gamma_2)$, i.e. $w=w_12\gamma_2+w_0 \text{ (mod } q)$.
+		At this point we have 
+		\begin{equation*}
+		\begin{split}
+		&\Pr_{\mathbf{y}}\left[\exists t^*\in T: \sum A_iy_i =t^*\right] \\&=	\Pr_{\mathbf{y}}[y_1 = A_1^{-1}(t^*-\sum A_iy_i )] \\&\leq \left(\frac{2\gamma_2+1}{2\gamma_1-1}\right)^n,
+		\end{split}
+		\end{equation*}
+		since the size of $S_{\gamma_1-1}^l$ is exactly $(2\gamma_1-1)^n$.
+	\end{proof}
+	
+	
+
+	Note that in Step 7 of Figure \ref{fig1}, because $\mathbf{u}:=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+\mathbf{t}_1b2^d$, we have  $\mathbf{u}_1=\textsf{HighBits}_q(\mathbf{u}, 2\gamma_2)=\mathbf{w}_1+\textsf{HighBits}_q(\mathbf{A}\mathbf{a}+\mathbf{t}_1b2^d, 2\gamma_2)$. Hence, for the min-entropy of \textsf{MBS}, it suffices to prove the following lemma.
+	\begin{lemma}[Min-entropy of \textsf{MBS}] \label{minentro}
+		%	Given $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$, $(\mathbf{s}_1, \mathbf{s}_2) \leftarrow_{\$} S_\eta^{l} \times  S_\eta^{k}$, $\mathbf{t} :=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2 \in R_q^{k}$, $\mathbf{t}_1:=\mathsf{Power2Round}_q(\mathbf{t},d)$,  consider a distribution $\mathcal{D}_{\mathbf{A}, \mathbf{t}}$ defined as follows: chooses $\mathbf{a} \leftarrow_{\$} S^l_{\alpha}$, $b \leftarrow_{\$} S_{\sigma}$, $\mathbf{y}\leftarrow_{\$} S_{\gamma_1-1}^l$, $\mathbf{w}_1:=\mathsf{HighBits}_q(\mathbf{A}\mathbf{y}, 2\gamma_2)$, and eventually outputs $\mathbf{u}:=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+\mathbf{t}_1b2^d$. For all $\mathbf{A} \in R_q^{k \times l}$ that contain at least one invertible polynomial, for all $\mathbf{t} \in R_q^k$, we have that for all $\mathbf{u}_1 \in R_q^k$, 
+		Given $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$, $(\mathbf{s}_1, \mathbf{s}_2) \leftarrow_{\$} S_\eta^{l} \times  S_\eta^{k}$, $\mathbf{t} :=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2 \in R_q^{k}$, $\mathbf{t}_1:=\mathsf{Power2Round}_q(\mathbf{t},d)$,  $\mathbf{a} \leftarrow_{\$} S^l_{\alpha}$, $b \leftarrow_{\$} S_{\sigma}$, $\mathbf{y}\leftarrow_{\$} S_{\gamma_1-1}^l$. Then for all $\bar{\mathbf{w}}_1$,
+		\begin{equation}\label{k17}
+	 \Pr_{\mathbf{a} \leftarrow_{\$} S^l_{\alpha}, b \leftarrow_{\$}}[\mathsf{HighBits}_q(\mathbf{A}\mathbf{a}+\mathbf{t}_1b2^d, 2\gamma_2)=\bar{\mathbf{w}}_1] \leq \left(\frac{2\gamma_2+1}{2\alpha+1}\right)^n.
+		\end{equation}
+		
+	\end{lemma}
+%	See the proofs of Lemma \ref{lem3} and Lemma \ref{minentro} in Appendix \ref{omit}.
+	
+	
+	\begin{proof}[of Lemma \ref{minentro}] 
+		The proof here is similar to the one of Lemma \ref{lem3} with noting that by the \textsf{MLWE} assumption, that is, $\mathbf{t}$ behaves as a uniform variable over $R_q^{k}$.
+		For all $\bar{w}_1$, define $T'$ to be the set of all integers $\bar{w}$ such that  $\mathsf{HighBits}_q(\bar{w}, 2\gamma_2)=\bar{w}_1$. Again, because the size of $T'$ is at most $(2\gamma_2+1)^n$ and the size of $S_{\alpha}^l$ is exactly $(2\alpha+1)^n$, we have 
+		\begin{equation*}
+		\begin{split}
+		&\Pr_{\mathbf{a},b}\left[\exists t^*\in T': \sum A_iy_i+t_1b2^d =t^*\right] \\&=	\Pr_{\mathbf{a}}[a_1 = A_1^{-1}(t^*-\sum A_ia_i -t_1b2^d)]\\
+		& \leq \left(\frac{2\gamma_2+1}{2\alpha+1}\right)^n.
+		\end{split}
+		\end{equation*}
+	\end{proof}
+	
+	The lemmas above (with appropriately chosen parameters) together with an argument of zero knowledge proof that is similar to the one in \cite[Appendix B]{DKL+19} enables us to simulate a perfect environment for the security proof performed in Section \ref{sec5}.
+	\iffalse
+	
+	\begin{lemma}[Lemma 5.2 in \cite{Lyu12}] \label{lem4}
+		Given a matrix $\mathbf{A} \in \mathbb{Z}_q^{n \times m}$ where $m>64+n\log q/\log(2d+1)$, randomly chosen $\mathbf{s} \leftarrow \{-d, \cdots, 0, \cdots, d\}^m$. Then with probability at least $1-2^{-100}$, there exists another $\mathbf{s}' \leftarrow \{-d, \cdots, 0, \cdots, d\}^m$ such that $\mathbf{A}\mathbf{s}=\mathbf{A}\mathbf{s}' \text{(mod } q).$
+	\end{lemma}
+	
+	\fi
+	
+	
+	\subsection{Size of the Public Key and the Signature} 
+	
+	The public key consists of $\rho$ of size $n/8$ bytes and $\mathbf{t}_1$ of size $(nk(\lceil \log q\rceil-d))/8$ bytes, so the size of the public key is totally $(nk(\lceil \log q\rceil-d)+n)/8$.
+	The signature $ \Sigma=(\mathbf{z}^*, c, \mathbf{d}, \mathbf{h}, \mathbf{u}_0)$ consists of $\mathbf{z}^*$ which is $nl \lceil \log (2\alpha) \rceil /8$ bytes, $c$ of size $\kappa(\log n+1)/8$ bytes, $\mathbf{d}$ of size $n/8$ bytes, $\mathbf{h}$ of size $nk/8$ bytes and $\mathbf{u}_0$ of size $nk\lceil \log(2\gamma_2)\rceil/8$. The total size of the signature is $$(nl \lceil \log (2\alpha) \rceil +\kappa(\log n+1)+n+nk+nk\lceil \log(2\gamma_2)\rceil)/8 \text{ bytes}.$$
+	
+	%====================================
+	\section{Security Analysis of \textsf{MBS}}  \label{sec5}
+	
+	\subsection{Security against Key Recovery Attacks}
+	
+	The keygen genration algorithm \textsf{MBS.KeyGen} of our scheme is quite similar to the algorithm \textsf{Gen} of \textsf{Dilithium}. Hence, our scheme is secure against key recovery attacks thanks to the \textsf{MLWE} assumption. Also, note that \textsf{MLWE} also guarantees that $(\mathbf{A},\mathbf{t}) \leftarrow \mathcal{L}_{q,k,l, S_{\eta'}}$ is indistinguishable from uniform over $R_q^{k\times l} \times R_q^{k}.$
+	%===========================
+	\subsection{Blindness}
+	
+	The blindness of \textsf{MBS} is the direct consequence of the following lemma. 
+	
+	\begin{lemma} [Adapted from Lemma 3.4 in \cite{Ruc08}] \label{blind}
+		Let $k\in \mathbb{N}$, $\mathbf{a},\mathbf{a}', \mathbf{b} \in \mathbb{Z}^k$ with arbitrary $\mathbf{a}, \mathbf{a}' \in \{  \mathbf{v} \in \mathbb{Z}^k: \Vert  \mathbf{v}\Vert_{\infty}\leq A\}$ and random $\mathbf{b} \leftarrow_{\$} \{  \mathbf{v} \in \mathbb{Z}^k: \Vert  \mathbf{v}\Vert_{\infty}\leq B\}$ for $B>A$. We define two random variables $\mathbf{c} \leftarrow \mathbf{a}+ \mathbf{b} $ and $\mathbf{c}'\leftarrow \mathbf{a}'+\mathbf{b} $ if $\max\{ \Vert \mathbf{a}+\mathbf{b} \Vert_{\infty} , \Vert \mathbf{a}'+\mathbf{b} \Vert_{\infty}\} \leq B-A$, otherwise we re-sample $\mathbf{b}$. Then $\Delta(\mathbf{c}, \mathbf{c}')=0$.
+	\end{lemma}
+	
+	
+	
+	\begin{theorem}[Blindness] \label{blindness} 
+		Our \textsf{MBS} scheme is blind provided that the commitment function \textsf{com} is hiding.
+	\end{theorem}
+	
+	\begin{proof}[of Theorem \ref{blindness}] It is easy to see that the blindness of our \textsf{BRS} scheme is guaranteed by Lemma \ref{blindne} and Lemma \ref{blind} with appropriately chosen parameters, assuming the hiding property of the commitment \textsf{com} to be satisfied.   
+		
+		\iffalse
+		As per the game of blindness in Subsection \ref{blind}, when the dishonest signer gives two messages $\mu_0$ and $\mu_1$ to the challenger, the challenger will chooses randomly a bit $b \in \{0,1\}$. Then the signer and the challenger initiates the blind ring signature protocol having interaction with only one of two users $\mathcal{U}(PK, \mu_0)$ and $\mathcal{U}(PK, \mu_{1})$. We show that the signer actually does not know which user he is interacting with, that is, the view $\mathcal{V}=(\mathbf{x},\mathbf{e}, (\mathbf{s}_i, \mathbf{y}_i)_{i \in [l]})$ that the signer has is independent of the message being signed. More precisely, $\mathbf{e}$ and $(\mathbf{y}_i)_{i \in [l]})$ is independent of the message being signed. 	Indeed, let $\mathcal{V}_0=(\mathbf{x}_0,\mathbf{e}_0, (\mathbf{s}_{0,i}, \mathbf{y}_{0,i})_{i \in [l]})$ and $\mathcal{V}_1=(\mathbf{x}_1,\mathbf{e}_1, (\mathbf{s}_{1,i}, \mathbf{y}_{1,i})_{i \in [l]})$ be views respectively corresponding to users $\mathcal{U}(PK, \mu_0)$ and $\mathcal{U}(PK, \mu_{1})$.
+		Then, the rejection sampling in Phase 2 ensures that both $\mathbf{e}_0$ and $\mathbf{e}_1$ are distributed according to the same distribution $\mathcal{D}_{\sigma_1}^k$. Similarly, by the rejection sampling in Phase 3, both $\mathbf{y}_{0,i}$ and $\mathbf{y}_{1,j}$ for all $i, j \in [l]$ follow the same distribution $\mathcal{D}_{\sigma_2}^m$ The distributions of $\mathbf{e}$ and $\mathbf{y}_{0,i}$ are independent of choosing the message to be signed.
+		
+		Now we care about the thing that after Phase 4, the adversarial signer gets $((\mathbf{a}_i)_{i\in[l]}, \mathbf{b}, \mathbf{c}, C)$ with $C:=\mathsf{com}(\mu,\mathbf{t})$ (without knowing the \textit{decommitment} $\mathbf{t}$) from the user hence he is able to know the partially unblinded signature $((\mathbf{z}_i)_{i \in [l]}, \mathbf{c})$ as well. However, again, by the rejection sampling used in Phase 4, the malicious signer is impossible to distinguish $(\mathbf{z}_{0,i})_{i \in [l]}$ from $(\mathbf{z}_{1,i})_{i \in [l]}$ where $(\mathbf{z}_{b,i})_{i \in [l]}$ is included in the signature corresponding to the user $\mathcal{U}(PK, \mu_b)$. Certainly, the signer does not learn anything about the original message $\mu$ being signed from the challenge $\mathbf{c}$ due to the property of the hash function $H$. Relating to the commitment $C:=\mathsf{com}(\mu,\mathbf{t})$, the hiding property of \textsf{com} guarantees that no information about the message $\mu$ is leaked.
+		
+		Finally, we concern the restart might happen in Phase 5. Again, by the hiding property of the commitment \textsf{com} and since the user samples fresh values $\mathbf{t}$, $\mathbf{a}$ and $\mathbf{b}$ after every such a restart, we have that each rerun of the protocol is independent of the previous runs. (See similar arguments to a blind signature scheme in \cite{Ruc10}.)
+		\fi
+		
+	\end{proof}
+	
+	
+	%===========================================================%
+	\subsection{One-more Unforgeability}
+	The one-more unforgeability for the \textsf{MBS} scheme is based on the intractability of the \textsf{MSIS} assumption. Our proof for this basically follows the proof of \cite[Theorem 3.8]{Ruc10} exploiting the rewinding (forking lemma) technique. Concretely, we will show in the following theorem that if there exists a  forger who breaks the one-more unforgeability of \textsf{MBS} then one can build an efficient \textsf{MSIS} solver.
+	\begin{theorem}[One-more Unforgeability] \label{theo1}
+		Provided that the commitment function  \textsf{com} used in the \textsf{MBS} scheme is binding. Assume that there is a forger $\mathcal{U}^*$ breaks the one-more unforgeablity of \textsf{MBS}, The attacker makes at most $h$ queries to the hash function, and at most $s-1$ queries to the signing protocol. Let $\theta$ be the probability of a restart occuring in the \textsf{MBS} scheme. Let $\psi$ non-negligible be the success probability of the attacker. Then we can construct a polynomial-time solver $\mathcal{G}$ that can find a solution to the \textsf{MSIS}$_{q,k, l, \nu}$ instance with $\nu=\max\{2(\gamma_1-\beta), 6\gamma_2+2+60 \cdot 2^d\}$ and probability $	\psi_{\textsf{total}}$ not smaller than 
+	$\min \{ \frac{1}{2s}(1-\theta)\left(1-\frac{1}{|B_{\kappa}|}\right)\left(\frac{\psi-\frac{1}{|B_{\kappa}|}}{h}-\frac{1}{|B_{\kappa}|}\right),$ $ \psi\left(1-\frac{1}{|B_{\kappa}|}\right) \}.$
+	
+	\end{theorem}
+	
+	
+	
+	\begin{proof}[of Theorem \ref{theo1}]
+		
+		The \textsf{MSIS} solver  $\mathcal{G}$ is constructed using  $\mathcal{U}^*$ as a subroutine as follows:
+		\begin{enumerate}
+			\item \textbf{Setup.} $\mathcal{G}$ chooses a security parameter $\lambda$, then generates the system parameters and the system functions included in $\mathsf{par}$, the public key/secret key $\textsf{PK}:=(\rho,\mathbf{t}_1)$, $\textsf{SK}:=(\rho,\mathbf{s}_1,\mathbf{s}_2,\mathbf{t}_0)$ by calling \textsf{Setup}$(1^{\lambda})$  and  then invoking \textsf{KeyGen}$(\mathsf{par})$. Next, $\mathcal{G}$ sends $\mathsf{par}$ and \textsf{PK} to $\mathcal{U}^*$. Note that, both $\mathcal{G}$ and $\mathcal{U}^*$ can easily recover the matrix $\mathbf{A}:=\textsf{Sam}(\rho) \in R_q^{k \times l}$ using \textsf{Sam} from $\rho$ and  $\mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2 \text{ (mod } q)=\mathbf{t}_12^d+\mathbf{t}_0 \text{ (mod } q), \mathbf{t} \in R_q^{k}$. Remember that, $\mathcal{G}$ keeps $\textsf{SK}$ secret.  The goal of $\mathcal{G}$ is solving the following \textsf{MSIS} problem which is hard:
+			\begin{equation}\label{k14}
+		\begin{split}
+			&\text{Find } \mathbf{x}\in R^{k+l+1} \text{ such that } [\mathbf{A}\|\mathbf{I}_{k}\|\mathbf{t}]\cdot \mathbf{x}=\textbf{0} \text{ (mod } q),\\
+			& \text{ subject to } \Vert \mathbf{x}\Vert \leq \nu.
+		\end{split}
+			\end{equation}
+			
+			The solver $\mathcal{G}$ initials and keeps a list $\textit{List}=((\mathbf{u}_1, C), c) \subset R_q^{k} \times \{0,1\}^n\times B_{\kappa}$ containing of random oracle queries $(\mathbf{u}_1, C)\leftarrow_{\$} R_q^{k} \times \{0,1\}^n$ and their corresponding hash value $ c \in B_{\kappa}$. Also,  $\mathcal{G}$ creates a list $\mathcal{R}:=\{r_1, \cdots, r_{h} \}$ where $r_i$'s are possible replies of the random oracle sampled uniformly at random from$B_{\kappa}$ as a set of replies of $H$ and also chooses a random tape $\textsf{rt}$. 
+		The solver $\mathcal{G}$ runs $\mathcal{U}^*(\mathsf{par}, \textsf{PK}, \textsf{rt})$ as a black-box routine in the following two phases:
+			
+			
+			\item \textbf{Queries.} The forger $\mathcal{U}^*$ makes at most $h$ hash queries and makes at most $s-1$ signing queries in an adaptive manner. If $\mathcal{U}^*$  makes the hash query $(\mathbf{u}_1, C)$, $\mathcal{G}$  will check the existence of the hash query in $\textit{List}$. If $(\mathbf{u}_1, C)$ is already in $\textit{List}$, $\mathcal{G}$ sends the corresponding hash value $c$ to the forger $\mathcal{U}^*$. If $(\mathbf{u}_1, C)$ is not in $\textit{List}$ yet, $\mathcal{G}$ assigns $c:=r_i$, where $r_i$ is the unused value that $\mathcal{G}$ sees first in $\mathcal{R}$. Then $\mathcal{G}$ updates the list $\textit{List}$ by adding the query-hash value pair $((\mathbf{u}_1, C), c)$ into it and finally sends $\mathcal{U}^*$ the value $c$. 
+			
+			In the reduction, $\mathcal{U}^*$ acts as the (dishonest) user and  the solver $\mathcal{G}$ acts as the signer, they initiates at most $s-1$ signing interactions following the real \textsf{MBS.Sign} in Figure \ref{fig1}.
+			
+			\item 
+			\textbf{Output.} With non-negligible probability $\psi$, the forger $\mathcal{U}^*$ eventually succeeds to obtain $s$ message/signature pairs $$(\mu_1, (\mathbf{z}^*_{1}, c_1, \mathbf{d}_1, \mathbf{h}_{1}, \mathbf{u}_{0,1}), \cdots, (\mu_s, (\mathbf{z}^*_{s}, c_s, \mathbf{d}_s, \mathbf{h}_{s}, \mathbf{u}_{0,s}),$$  only making at most $s-1$ signing interactions,  where $\mu_i \neq \mu_j$ for all $i,j\in[s], i\neq j$. At this stage, the solver $\mathcal{G}$ selects uniformly at random an index $\tau \in [s]$ such that $c_\tau=r_{i_0}$ for some $i_0 \in [h]$. 
+			
+			
+		\end{enumerate}	
+		
+		
+		Now, the solver $\mathcal{G}$ exploits the rewinding technique: He again samples random oracle answers $\{r'_{i}, \cdots, r'_{h}\}$ from $B_{\kappa}$, creates $\mathcal{R}':=\{r_1, \cdots, r_{i-1}, r'_{i}, \cdots, r'_{h} \}$ and then invokes $\mathcal{U}^*(\mathsf{par}, \textsf{PK}, \textsf{rt})$ using $\mathcal{R}'$ instead of $\mathcal{R}$. 
+		Again, after at most $s-1$ signing interactions, $\mathcal{U}^*$ outputs
+		$(\mu'_\tau, (\mathbf{z'}^*_{\tau}, c'_\tau, \mathbf{d}'_\tau, \mathbf{h}'_{\tau}, \mathbf{u}'_{0,\tau}))$ among $s-1$ other pairs. If $c_\tau \neq  c'_\tau$, 
+		$\mathcal{G}$ uses 
+		\begin{equation}\label{k15}
+		(\mu_\tau, (\mathbf{z}^*_{\tau}, c_\tau, \mathbf{d}_\tau, \mathbf{h}_{\tau}, \mathbf{u}_{0,\tau})) \text{ and } (\mu'_\tau, (\mathbf{z'}^*_{\tau}, c'_\tau, \mathbf{d}'_\tau, \mathbf{h}'_{\tau}, \mathbf{u}'_{0,\tau})),
+		\end{equation}
+		aiming at extracting a solution to the \textsf{MSIS} problem \eqref{k14}. If $c_\tau =  c'_\tau$, the solver $\mathcal{G}$ reruns $\mathcal{U}^*(\mathsf{par}, \textsf{PK}, \textsf{rt}')$ at most $h^{s}$ times with a different random tape $\textsf{rt}'$.
+		
+		
+		
+		
+		\textbf{Analysis.} 
+		Below, we will analysis to see how $\mathcal{G}$ extracts a solution to the \textsf{MSIS} problem \eqref{k14} from the outputs of $\mathcal{U}^*$.
+		
+		
+		First of all, we can see that the environment of $\mathcal{U}^*$ is perfectly modeled by $\mathcal{G}$ even with restarts which happen with probability $\theta$ as in real signing protocol \textsf{MBS.Sign}.  Due to having at most $s-1$ real interactions performed between $\mathcal{G}$ and $\mathcal{U}^*$, at least one  of $s$ output signatures is not from these real interactions. For the index $\tau \in[s]$ of the forged signature $(\mathbf{z}^*_{\tau}, c_\tau, \mathbf{d}_\tau, \mathbf{h}_{\tau}, \mathbf{u}_{0,\tau})$ on $\mu_\tau$, the success probability of $\mathcal{G}$ in guessing correctly $\tau$ is at least $1/s$. The probability that $c_{\tau}$ is correctly guessed is exactly $1/|B_{\kappa}|$ since it is chosen uniformly at random. Regarding reruns of $\mathcal{U}^*$, with probability $1/2$, at least one rerun gives the same pair $(i_0,\tau)$ fulfilling that  $r_{i_0}=c_\tau$ as the first run of $\mathcal{U}^*$. 
+		
+		When $\mathcal{G}$ invokes the rewinding technique, by the forking lemma \cite[Lemma A.1]{Ruc08}, $\mathcal{U}^*$ breaks the one-more unforgeability again and outputs $ (\mathbf{z'}^*_{\tau}, c'_\tau,$ $ \mathbf{d}'_\tau, \mathbf{h}'_{\tau}, \mathbf{u}'_{0,\tau})$ on some $\mu'_\tau$,  with probability $$\psi_{\textsf{fork}} \geq (1-\theta) (\psi-1/|B_{\kappa}|)((\psi-1/|B_{\kappa}|)/h-1/|B_{\kappa}|),$$ taking  restarts which may happen with probability at most $\theta$ into account, using the same random oracle query, say $(\mathbf{u}_{1,\tau}, C_\tau)$, as in the first run. The random oracle query used, $(\mathbf{u}_{1,\tau}, C_\tau)$,   is exactly recovered from the signatures in \eqref{k15} by
+		\begin{equation*}\label{key}
+		\begin{split}
+	&	(\textsf{UseHint}_q(\mathbf{h}_\tau,\widehat{\mathbf{u}}_\tau,2\gamma_2), \mathsf{com}(\mu_\tau,\mathbf{d}_\tau))\\&=(\textsf{UseHint}_q(\mathbf{h}'_\tau,\widehat{\mathbf{u}}'_\tau,2\gamma_2), \mathsf{com}(\mu'_\tau,\mathbf{d}'_\tau)),
+		\end{split}
+		\end{equation*}
+		where $\widehat{\mathbf{u}}_\tau=\mathbf{A}\mathbf{z}^*_\tau-c_\tau\mathbf{t}_{1}2^d-\mathbf{u}_{0,\tau}$, $\widehat{\mathbf{u}}'_\tau=\mathbf{A}\mathbf{z}'^*_\tau-c'_\tau\mathbf{t}_{1}2^d-\mathbf{u}'_{0,\tau}$ and $C_\tau=\mathsf{com}(\mu_\tau,\mathbf{d}_\tau)=\mathsf{com}(\mu'_\tau,\mathbf{d}'_\tau)$. According to the binding property of \textsf{com}, it must be that $\mu_\tau=\mu'_\tau$ and $\mathbf{d}_\tau=\mathbf{d}'_\tau$, so we do not care about them.
+		Since then, we have that
+		$$\textsf{UseHint}_q(\mathbf{h}_\tau,\widehat{\mathbf{u}}_\tau,2\gamma_2)=\textsf{UseHint}_q(\mathbf{h}'_\tau,\widehat{\mathbf{u}}'_\tau,2\gamma_2).$$	
+		\iffalse
+		\begin{enumerate}
+			\item \textbf{Case 1:}  If $\widehat{\mathbf{u}}_\tau=\widehat{\mathbf{u}}'_\tau$ then $\mathbf{h}_\tau=\mathbf{h}'_\tau$ by Lemma \ref{lem1}(\textit{iii}), then
+			$$\mathbf{A}\mathbf{z}^*_\tau-c_\tau\mathbf{t}_{1}2^d-\mathbf{u}_{0,\tau}=\mathbf{A}\mathbf{z}'^*_\tau-c'_\tau\mathbf{t}_{1}2^d-\mathbf{u}'_{0,\tau}.$$
+			Equivalently, 
+			$$\mathbf{A}(\mathbf{z}^*_\tau-\mathbf{z}'^*_\tau)+(c'_\tau-c_\tau)\mathbf{t}-(c'_\tau-c_\tau)\mathbf{t}_{0}-\mathbf{u}_{0,\tau}+\mathbf{u}'_{0,\tau}=\textbf{0},$$ or
+			$[\mathbf{A}\|\mathbf{I}_{k}\|\mathbf{t}]\cdot \mathbf{x}=\textbf{0},$
+			where $\mathbf{x}=(\mathbf{z}^*_\tau-\mathbf{z}'^*_\tau,(c_\tau-c'_\tau)\mathbf{t}_{0}-\mathbf{u}_{0,\tau}+\mathbf{u}'_{0,\tau}, c'_\tau-c_\tau).$
+			We have $\Vert \mathbf{u}_{0,\tau} \Vert_{\infty}, \Vert \mathbf{u}'_{0,\tau} \Vert_{\infty} \leq \gamma_2$ and hence
+			\begin{align*}
+			\Vert (c_\tau-c'_\tau)\mathbf{t}_{0}-\mathbf{u}_{0,\tau}+\mathbf{u}'_{0,\tau}  \Vert_{\infty} &\leq \Vert \mathbf{u}_{0,\tau}-\mathbf{u}'_{0,\tau} \Vert_{\infty}+\Vert c'_\tau-c_\tau\Vert_1\cdot \Vert \mathbf{t}_0 \Vert_{\infty} \\
+			&\leq 2\gamma_2+60 \cdot 2^d.
+			\end{align*}
+			Thus,
+			$\Vert \mathbf{x} \Vert_{\infty}  \leq \max \{2(\alpha+\beta-\gamma_1), 2\gamma_2+60 \cdot 2^d\}.$ It is easy to see that $\mathbf{x} \neq \textbf{0}$ as $c_\tau \neq c'_\tau $. 
+			
+			
+			Recall that, $\mathbf{h}_\tau:=\textsf{MakeHint}_q(-c^*_\tau\mathbf{t}_0,\mathbf{v}_{0,\tau}, 2\gamma_2)$  and $\mathbf{h}'_\tau:=\textsf{MakeHint}_q(-c'^*_\tau\mathbf{t}_0,$ $\mathbf{v'}_{0,\tau}, 2\gamma_2)$, where $\mathbf{v}_{0,\tau}:=\mathbf{w}_{0,\tau}-c^*_\tau\mathbf{s}_2+c^*_\tau\mathbf{t}_0$, $\mathbf{v}'_{0,\tau}:=\mathbf{w}'_{0,\tau}-c'^*_\tau\mathbf{s}_2+c'^*_\tau\mathbf{t}_0$	and $\mathbf{w}_{0,\tau}=\textsf{LowBits}_q(\mathbf{A}\mathbf{y}_\tau, 2\gamma_2)$, $\mathbf{w}'_{0,\tau}=\textsf{LowBits}_q(\mathbf{A}\mathbf{y}'_\tau, 2\gamma_2)$. 
+			
+			\item \textbf{Case 2:} If 
+			
+			$\widehat{\mathbf{u}}_\tau \neq \widehat{\mathbf{u}}'_\tau$, the from Equation \eqref{key}, 
+			\fi
+			
+			hence, $$2\gamma_2\cdot \textsf{UseHint}_q(\mathbf{h}_\tau,\widehat{\mathbf{u}}_\tau,2\gamma_2)=2\gamma_2\cdot \textsf{UseHint}_q(\mathbf{h}'_\tau,\widehat{\mathbf{u}}'_\tau,2\gamma_2),$$
+			which is rewritten as
+			\begin{equation}\label{eq1}
+			\mathbf{A}\mathbf{z}^*_\tau-c_\tau\mathbf{t}_{1}2^d-\mathbf{u}_{0,\tau}+\bar{\mathbf{u}}_\tau =\mathbf{A}\mathbf{z}'^*_\tau-c'_\tau\mathbf{t}_{1}2^d-\mathbf{u}'_{0,\tau}+\bar{\mathbf{u}}'_\tau,
+			\end{equation}
+			with $\Vert \bar{\mathbf{u}}_\tau \Vert_{\infty}, \Vert \bar{\mathbf{u}}'_\tau \Vert_{\infty} \leq 2\gamma_2+1$ by Lemma \ref{lem1}(ii). Equation \eqref{eq1} is equivalent to
+			\begin{equation*}\label{eq2}
+			\mathbf{A}(\mathbf{z}^*_\tau-\mathbf{z}'^*_\tau)+(c'_\tau-c_\tau)\mathbf{t}_{1}2^d =\mathbf{u}_{0,\tau}-\bar{\mathbf{u}}_\tau-\mathbf{u}'_{0,\tau}+\bar{\mathbf{u}}'_\tau,
+			\end{equation*}
+			which is 
+			\begin{equation*}\label{eq7}
+			\mathbf{A}(\mathbf{z}^*_\tau-\mathbf{z}'^*_\tau)+(c'_\tau-c_\tau)\mathbf{t}-\mathbf{u}_{0,\tau}+\mathbf{u}'_{0,\tau}-\bar{\mathbf{u}}'_\tau+\bar{\mathbf{u}}_\tau-(c'_\tau-c_\tau)\mathbf{t}_0=\textbf{0},
+			\end{equation*}
+			or in the form 
+			$$[\mathbf{A}\|\mathbf{I}_{k} \|\mathbf{t}]\cdot \mathbf{x}=\textbf{0},$$
+			where $\mathbf{x}=(\mathbf{z}^*_\tau-\mathbf{z}'^*_\tau, \bar{\mathbf{x}}, c'_\tau-c_\tau)$, with $ \bar{\mathbf{x}}=\mathbf{u}'_{0,\tau}-\mathbf{u}_{0,\tau}-\bar{\mathbf{u}}'_\tau+\bar{\mathbf{u}}_\tau-(c'_\tau-c_\tau)\mathbf{t}_0.$
+			
+			Note that, $\Vert \mathbf{z}^*_\tau-\mathbf{z}'^*_\tau \Vert_{\infty} \leq 2(\alpha+\beta-\gamma_1)$, and 
+			\begin{align*}
+			\Vert \bar{\mathbf{x}} \Vert_{\infty} &\leq \Vert \mathbf{u}'_{0,\tau}-\mathbf{u}_{0,\tau} \Vert_{\infty}+\Vert \bar{\mathbf{u}}'_\tau-\bar{\mathbf{u}}_\tau\Vert_{\infty}+\Vert c'_\tau-c_\tau\Vert_1\cdot \Vert \mathbf{t}_0 \Vert_{\infty} \\
+			&\leq 6\gamma_2+2+60 \cdot 2^d.
+			\end{align*}
+			Hence, $\Vert \mathbf{x} \Vert_{\infty}  \leq \max \{2(\alpha+\beta-\gamma_1), 6\gamma_2+2+60 \cdot 2^d\}$.
+			Again, $\mathbf{x} \neq \textbf{0}$ as $c_\tau \neq c'_\tau $. 
+			%	\end{enumerate}
+			
+			To summarize, we have the success probability in solving \textsf{MSIS} \eqref{k14} is at least \begin{equation*}
+			\begin{split}
+		\psi_{\textsf{sol}} &\geq \frac{1}{2s}\psi_{\textsf{fork}} \\
+		&\geq \frac{1}{2s}(1-\theta) (\psi-1/|B_{\kappa}|)((\psi-1/|B_{\kappa}|)/h-1/|B_{\kappa}|).
+			\end{split}
+			\end{equation*}
+			
+			Now we assume that there is an abort happening in Phase 5. Then we will show that a cheating user cannot output a valid signature without solving the \textsf{MSIS} problem.   To trigger a restart, after Phase 4, the \textsf{result} $:= (\mathbf{a}, b, c, C, \mathbf{u}_0)$ is sent to the signer. Together with the view of the signer $\mathcal{V}=(\mathbf{w}_1,c^*,\mathbf{y}, \mathbf{z})$, the signer computes
+			$\mathbf{u}=\mathbf{A}\mathbf{a}+\mathbf{w}_1 2\gamma_2+b\mathbf{t}_1 2^d$ (mod $q$), $\mathbf{u}_1=\textsf{HighBits}_q(\mathbf{u},2\gamma_2)$,  $\widehat{\mathbf{u}}=\mathbf{A}\mathbf{a}+\mathbf{A}\mathbf{z}-c\mathbf{t}_1 2^d-\mathbf{u}_0$ (mod $q$), 	$\widehat{\mathbf{u}}_1=\textsf{UseHint}_q(\mathbf{h},\widehat{\mathbf{u}}, 2\gamma_2)$. and check all following conditions:
+			\begin{align}
+			c^*-b=c&=H(\mathbf{u}_1,C)\label{eq3}\\
+			c&=H(\widehat{\mathbf{u}}_1, C) \label{eq4}\\
+			\Vert \mathbf{z}+\mathbf{a} \Vert_\infty &> \alpha+\beta-\gamma_1 \label{eq5}
+			\end{align}
+			If all conditions are satisfied, the signer will restart the protocol. Assume that the user can get from this abort  a valid signature $ \Sigma=(\mathbf{z}'^*, c', \mathbf{d}'$, $ \mathbf{h}', \mathbf{u}'_0)$ with $\Vert \mathbf{z}'^* \Vert_\infty \leq \alpha+\beta-\gamma_1$. Set $\widehat{\mathbf{u}}'=\mathbf{A}\mathbf{z}'^*-c'\mathbf{t}_1 2^d-\mathbf{u}'_0$ (mod $q$), 	$\widehat{\mathbf{u}}'_1=\textsf{UseHint}_q(\mathbf{h},\widehat{\mathbf{u}}', 2\gamma_2)$. 
+			In case $c'=c$, we have by \eqref{eq4} that $\widehat{\mathbf{u}}_1=\widehat{\mathbf{u}}'_1$, i.e., 
+			$$\textsf{UseHint}_q(\mathbf{h},\widehat{\mathbf{u}}, 2\gamma_2)=\textsf{UseHint}_q(\mathbf{h},\widehat{\mathbf{u}}', 2\gamma_2).$$
+			That is,
+			$
+			\mathbf{A}\mathbf{z}+	\mathbf{A}\mathbf{a}-\mathbf{u}_{0}+\bar{\mathbf{u}} =\mathbf{A}\mathbf{z}'^*-\mathbf{u}'_{0}+\bar{\mathbf{u}}',
+			$
+			equivalently,
+			\begin{equation*}\label{eq123}
+			\mathbf{A}(\mathbf{z}+\mathbf{a}-\mathbf{z}'^*)+\mathbf{u}'_{0}-\mathbf{u}_{0}+\bar{\mathbf{u}}-\bar{\mathbf{u}}' =\textbf{0},
+			\end{equation*}
+			where $\Vert \bar{\mathbf{u}}\Vert_{\infty} \leq 2\gamma_2+1$ and $\Vert \bar{\mathbf{u}}'\Vert_{\infty} \leq 2\gamma_2+1$.
+			Define 	\begin{align*}
+			\mathbf{x}:=(\mathbf{z}+\mathbf{a}-\mathbf{z}'^*,\mathbf{u}'_{0}-\mathbf{u}_{0}+\bar{\mathbf{u}}-\bar{\mathbf{u}}', \textbf{0}),
+			\end{align*} we have $[\mathbf{A}\|\mathbf{I}_{k}, \mathbf{t}]\cdot \mathbf{x}=\mathbf{0}\text{ (mod } q).$ 
+			If 	$\mathbf{x}=0$, then we have $ \mathbf{z}+\mathbf{a}=\mathbf{z}'^* $, hence $\Vert \mathbf{z}+\mathbf{a} \Vert_\infty \leq \alpha+\beta-\gamma_1$ which contradicts with \eqref{eq5}. Hence, we have $\mathbf{x} \neq \mathbf{0}$ and $\Vert \mathbf{x}\Vert_{\infty} \leq \max \{2(\gamma_1-\beta), 6\gamma_2+2 \}$. In case $c'\neq c$, we assume that the cheating user might be successful by hiding $c'$ in some $c^*$. By \eqref{eq3}, there exists some $b' \neq b$ such that $c^*=c+b=c'+b'$. in this case, the user had to be able to predict what $H$ outputted in order to compute $b'$. And the success probability of the prediction is exactly $1-1/\vert B_{\kappa}\vert$. Therefore, the success probability of $\mathcal{G}$ in solving the \textsf{MSIS} problem \eqref{k14} when an abort happens is at least $\psi_{\textsf{abort}} \geq \psi(1-1/|B_{\kappa}|)$. 
+			
+			To conclude, with the overall success probability $\psi_{\textsf{total}} \geq \min \{\psi_{\textsf{sol}},$ $ \psi_{\textsf{abort}} \}$, the solver $\mathcal{G}$ can solve the \textsf{MSIS}$_{q,k,l, \nu}$ problem \eqref{k14}: $[\mathbf{A}\|\mathbf{I}_{k} \|\mathbf{t}]\cdot \mathbf{x}=\mathbf{0}\text{ (mod } q),$ where $\Vert \mathbf{x} \Vert_{\infty} \leq \nu:=\max\{2(\gamma_1-\beta), 6\gamma_2+2+60 \cdot 2^d\}.$  Clearly, $\psi_{\textsf{total}}$ is non-negligible if $\psi$ is non-negligible.  
+		\end{proof}	
+		
+		
+		
+		
+		\section{Choosing Parameters for \textsf{MBS}}  \label{para}
+		Compared with \textsf{Dilithium}, two more parameters are needed for our \textsf{MBS} scheme, namely $\alpha$ and $\sigma$. These are the size of the masking parameters $\mathbf{a}$ and $b$ which are used to blind the challenge $c$ and un-blind the blinded signature $\mathbf{z}$. 
+		Setting parameters for \textsf{MBS} should follows the way done in \cite{DKL+19} which is a trade-off of some factors such as the hardness of the underlying problems \textsf{MLWE} and \textsf{MSIS}, the number of restarts happening locally or globally in the scheme which affects to the runtime, the total size of the public key and the signature and so on. 
+		%Hence, we should take  \eqref{k}-\eqref{k17} and \eqref{k7}-\eqref{k12} (see Appendix \ref{csa}) into account. 
+		The concrete parameters for \textsf{MBS} in accordance with the security levels as in \textsf{Dilithium} will be considered and specified in the full version of this paper.
+		
+		
+		\iffalse
+		\begin{itemize}
+			\item $\sigma$ is such that the number of restarts that locally occurs in Phase 2, in \eqref{k} is small. 
+			%So we can choose $\sigma=1/2$. In this case, the number of local restarts is $e^2 \approx7.4$. Then $\Vert c^* \Vert_{\infty} \leq n/2-1$
+			\item $\beta$ has to satisfy \eqref{k2} with overwhelming probability and make $\Pr[\text{Step 15 passes}]$ in \eqref{k3} as high as possible. Certainly, a trivial choice for $\beta$ is $n(\sigma-1)\eta$ since $	\Vert c^*\mathbf{s}_i \Vert_{\infty}$. However, we need $\beta$ as smallest as possible to reduce the number of restarts happening  in Phase 3. Section 4.4. in \cite[]{DLL+17} gives a discussion on the role of $\beta$ saying that $\beta$ can be chosen satisfying that $\Pr[\Vert c\mathbf{s}_i \Vert_{\infty}>\beta] \approx 2^{-80}$. Similarly, we can set parameters such that $\Pr[\Vert c^*\mathbf{s}_i \Vert_{\infty}>\beta] \approx 2^{-80}$.
+			\item  For \textsf{MLWE} to be secure against the primal attack and the dual attack, we should choose the smallest block size ($b$), the size of $\mathbf{s}_1, \mathbf{s}_1$$\eta, b, n,k,l,q$ such that  
+			\begin{align}
+			\eta \sqrt{b} &>\max_m(\delta^{2b-d-1}\cdot q^{m/d})\\
+			R_{\text{min}}=1/(2^{0.2075b}\varepsilon_{\text{max}}^2) & \text{ is sufficiently large.} \label{k13}
+			\end{align}
+			
+			\item 
+			
+		\end{itemize}
+		
+		\fi
+		
+		
+		
+		\section{Conclusions}
+		
+		We proposed a \textsf{Dilithium}-based blind signature scheme using module lattices in this paper. Basing on \textsf{MLWE}, \textsf{MSIS} hardness assumptions, the proposed scheme is shown to be secure against key recovery attacks as well as to be one-more unforgeable secure in the random oracle model. The blindness of our scheme is obtained using rejection sampling, a typical method used in lattice-based cryptography. The compression technique is also exploited to minimize the public key size and to make the public key+signature size small.  A consideration of security of \textsf{MBS} in the QROM model and setting practically concrete parameters for \textsf{MBS} are left to the future works. 
+		
+		\section*{Acknowledgment}
+		We would like to thank anonymous reviewers for their helpful comments.
+		\bibliographystyle{alpha}
+		\bibliography{references.bib}
+	
+	
+		\iffalse		
+		\appendix
+
+		\subsection{Supporting Algorithms for \textsf{Dilithium} and \textsf{MBS}} \label{suppor}
+		
+		We summarize the algorithms $ \textsf{UseHint}_q,$ $ \textsf{MakeHint}_q,$ $ \textsf{Decompose}_q, $ $ \textsf{Power2Round}_q,$ $ \textsf{HighBits}_q, \textsf{LowBits}_q,$ in the Figure \ref{tab4} below.
+	
+		\begin{figure}[h]
+			\centering
+			\medskip
+			\smallskip
+			%	\raisebox{\dimexpr 0.6\baselineskip-\height}% align tops
+			\small\addtolength{\tabcolsep}{8pt}
+			\begin{tabular}{ |l |}
+				\hline
+				$\underline{\textsf{Power2Round}_q(r,d):}$\\
+				1. $r:=r \text{ mod}^+ q$\\
+				2. $r_0:=r \text{ mod}^{\pm} 2^d$			\\
+				3. return $((r-r_0)/2^d,r_0)$\\
+				\\
+				$\underline{\textsf{MakeHint}_q(z,r,\alpha):}$\\
+				1. $r_1:=\textsf{HighBits}_q(r,\alpha)$	\\
+				2. $v_1:=\textsf{HighBits}_q(r+z,\alpha)$\\
+				3. return 1 if $r_1 \neq v_1$, 0 otherwise\\	
+				\\
+				
+				$\underline{\textsf{UseHint}_q(h,r,\alpha):}$ \\
+				1. $m:=(q-1)/\alpha$\\
+				2. $(r_1,r_0):=\textsf{Decompose}_q(r,\alpha)$\\
+				3. If $h=1$ and $r_0>0$ return ($r_1+1 \text{ mod}^+ m$) \\	
+				4. If $h=1$ and $r_0\leq 0$ return ($r_1-1 \text{ mod}^+ m$) \\
+				5. return $r_1$ \\
+				\\
+				
+				$\underline{\textsf{Decompose}_q(r,\alpha):}$\\
+				1. $r:=r \text{ mod}^+ q$\\
+				2. $r_0:=r \text{ mod}^{\pm} \alpha$
+				\\
+				
+				3. if $r-r_0=q-1$\\
+				\hspace{0.5cm} then $r_1:=0, r_0:=r_0-1$\\
+				4. else $r_1:=(r-r_0)/\alpha$\\
+				5. return $(r_1,r_0)$\\
+				\\
+				$\underline{\textsf{HighBits}_q(r,\alpha):}$\\
+				
+				1. ($r_1, r_0)=\textsf{Decompose}_q(r,\alpha)$ \\
+				2. return $r_1$ \\
+				\\
+				$\underline{\textsf{LowBits}_q(r,\alpha):}$\\	
+				1. ($r_1, r_0)=\textsf{Decompose}_q(r,\alpha)$   \\
+				2. return $r_0$\\
+				\hline 
+			\end{tabular} 
+			
+			\caption{Supporting algorithms for \textsf{Dilithium} and our blind signature scheme}
+			\label{tab4}
+		\end{figure}
+		
+		
+		
+		\subsection{Omitted Proofs} \label{omit}
+		
+			\begin{proof}[of Lemma \ref{lem3}]
+			
+			For a matrix $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$, with probability at least $1-(1/q)^{kl}$, one of $k\cdot l$ polynomials in the matrix $\mathbf{A}$ is invertible over $R_q$. 
+			Assume that $[A_1,\cdots, A_l]$ is the row of $\mathbf{A}$ that contains the invertible polynomial, say without loss of generality $A_1$. Let call $T$ the set of all integers $w$ such that  $\mathsf{HighBits}_q(w, 2\gamma_2)=w_1$. Then the size of $T$ is at most $(2\gamma_2+1)^n$ (which is the number of possibility of $w_0$ such that $(w_1,w_0)=\textsf{Decompose}_q(w,2\gamma_2)$, i.e. $w=w_12\gamma_2+w_0 \text{ (mod } q)$.
+			At this point we have 
+			\begin{equation*}
+			\begin{split}
+			&\Pr_{\mathbf{y}}\left[\exists t^*\in T: \sum A_iy_i =t^*\right] \\&=	\Pr_{\mathbf{y}}[y_1 = A_1^{-1}(t^*-\sum A_iy_i )] \\&\leq \left(\frac{2\gamma_2+1}{2\gamma_1-1}\right)^n,
+			\end{split}
+			\end{equation*}
+			since the size of $S_{\gamma_1-1}^l$ is exactly $(2\gamma_1-1)^n$.
+		\end{proof}
+	
+	
+	
+		\begin{proof}[of Lemma \ref{minentro}] 
+		The proof here is similar to the one of Lemma \ref{lem3} with noting that by the \textsf{MLWE} assumption, that is, $\mathbf{t}$ behaves as a uniform variable over $R_q^{k}$.
+		For all $\bar{w}_1$, define $T'$ to be the set of all integers $\bar{w}$ such that  $\mathsf{HighBits}_q(\bar{w}, 2\gamma_2)=\bar{w}_1$. Again, because the size of $T'$ is at most $(2\gamma_2+1)^n$ and the size of $S_{\alpha}^l$ is exactly $(2\alpha+1)^n$, we have 
+		\begin{equation*}
+		\begin{split}
+		&\Pr_{\mathbf{a},b}\left[\exists t^*\in T': \sum A_iy_i+t_1b2^d =t^*\right] \\&=	\Pr_{\mathbf{a}}[a_1 = A_1^{-1}(t^*-\sum A_ia_i -t_1b2^d)]\\
+		& \leq \left(\frac{2\gamma_2+1}{2\alpha+1}\right)^n.
+		\end{split}
+		\end{equation*}
+	\end{proof}
+	
+
+		\subsection{Concrete Security Analysis} \label{csa}
+		
+			Basically, the way we choose practical parameters for \textsf{MBS} is quite similar to that for \textsf{Dilithium}. Therefore, we first review how to evaluate the concrete security of \textsf{Dilithium}, then we adapt that for our \textsf{MBS}.
+		
+		The concrete security of \textsf{Dilithium} in \cite{DKL+19} is analyzed  following \cite{ADPS16, APS15,  AAB+19} which only focuses on the \textit{core \textsf{SVP} hardness} model. In this model, one evaluates how much cost one all to an \textsf{SVP} oracle in dimension $b$ takes. Among others, BKZ is a lattice basis reduction  typically used in practice to find a short vector in a lattice. BKZ with block size $b$ calls many times an \textsf{SVP} oracle in a dimension $b$. The \textsf{SVP} oracle utilized in BKZ can be either enumeration and its improvements \cite{SE94, GNR10, AN17}, or sieving \cite{Ajtai01, Bec16, Laar2015}, or Voronoi cell computation \cite{MV13}. Recently, the sieve algorithm has been improved much and it seems that the sieving algorithm outperforms than the others.  So far, the best-known classical \textsf{SVP} oracle in dimension $b$ (a variant of sieving) can reach to $\sqrt{3/2}^{b+o(b)} \approx 2^{0.292b}$ time  complexity. Benefiting from Grover's quantum search algorithm \cite{Gro96}, the time complexity of most of sieve variants has been going down from $2^{0.292b}$ to  $2^{0.265b}$. One expects to improve sieving further going down to $\sqrt{4/3}^{b+o(b)}\approx2^{0.2075b}$ because all sieve variants require classically building a list of $\sqrt{4/3}^{b+o(b)}$ vectors. See \cite[4.2]{AAB+19}, \cite[Appedix C]{DKL+19} for more details. 
+		
+		The security of \textsf{Dilithium} and the \textsf{MBS} scheme basically relates to solving \textsf{MLWE} and \textsf{MSIS} problems. Now, we consider an $\mathsf{MLWE}$ instance $(\mathbf{A},\mathbf{t}=\mathbf{A}\mathbf{s}_1+\mathbf{s}_2) \in R_q^{k\times l}\times R_q^k$, where $\mathbf{s}_1, \mathbf{s}_2\leftarrow S_{\eta}^l$ and learn about two most powerful key recovery attacks against \textsf{sMLWE} and \textsf{dMLWE}. To begin, we define some more notations as follows: If $\mathbf{u}^t=(u_1, \cdots,u_k) \in R^k$ be a vector of $k$ polynomials in $R$, $\textsf{vec}(\mathbf{u})$ presents the vector obtained by concatenating the coefficients of $t_i$'s, of course, $\textsf{vec}(\mathbf{t}) \in \mathbb{Z}^{nk}$. Given $\mathbf{A}=(a_{i,j})_{i\in[k], j\in [l] }\in R^{k\times l}$ is a $k\times l$ matrix  whose each element is a polynomial in $R$, $\textsf{rot}(\mathbf{A}) \in \mathbb{Z}^{nk\times nl}$ is the expanded matrix obtained by replacing each element $a_{i,j}$ of $\mathbf{A}$ by an $n\times n$ matrix whose $z$-th column is $\textsf{vec}(X^{z-1}a_{i,j})$. 
+		\begin{itemize}
+			\item Primal attack: From the observation that $\mathbf{A}\mathbf{s}_1+\mathbf{s}_2-\mathbf{t}=\mathbf{0} \text{ (mod } q)$, hence $\mathbf{x}=(\mathbf{s}_1,\mathbf{s}_2, 1)$ is the unique solution to $[\mathbf{A}\|\mathbf{I}\|-\mathbf{t}]\mathbf{x}=\mathbf{0} \text{ (mod } q)$ if $\eta$ is sufficiently small, we build the lattice $\Lambda_q=\{\mathbf{x} \in\mathbb{Z}^{nk+nl+1}: [\textsf{rot}(\mathbf{A})\| \mathbf{I}_{nk} \|-\textsf{vec}(\mathbf{t})]\mathbf{x}=\mathbf{0} \text{ (mod } q)\}$. From the view of the attacker, he might just build
+			$\Lambda'_q=\{\mathbf{x} \in\mathbb{Z}^{m+nl+1}: [\textsf{rot}(\mathbf{A})_{[1:m]}\| \mathbf{I}_{m} \|-\textsf{vec}(\mathbf{t})_{[1:m]}]\mathbf{x}=\mathbf{0} \text{ (mod } q)\}$, where $0 \leq m\leq nk$ is chosen numerically, and $\textsf{rot}(\mathbf{A})_{[1:m]}$ is the sub-matrix consisting of first $m$ rows and first $m$ columns of $\textsf{rot}(\mathbf{A})$, and $\textsf{vec}(\mathbf{t})_{[1:m]}$ contains first $m$ elements of $\textsf{vec}(\mathbf{t})$. In this case, the target solution is $\mathbf{x}_0=(\textsf{vec}(\mathbf{s}_1)\| \textsf{vec}(\mathbf{s}_2)_{[1:m]}\| 1)$ of Euclidean norm $\approx \eta\sqrt{nl+m}$.
+			The primal attack succeeds in solving the \textsf{sMLWE} problem if and oly if
+			\begin{equation}\label{k7}
+			\eta \sqrt{b}\leq \delta^{2b-d-1}\cdot q^{m/d},
+			\end{equation}
+			where $b$ is the  block size of BKZ, $\delta=\left((\pi b)^{1/b}\cdot b/(2\pi e)\right)^{1/2(b-1)}$, $d=m+nl+1$, $m\leq nk$.	(See \cite[Subsection 4.2]{AAB+19}.) 
+			
+Theoretically, the possibly optimal $m$ should be such that  $\delta^{2b-d-1}\cdot q^{m/d}$ is maximal, which implies that $m=m_{\textrm{optimal}}:=\sqrt{(nl+1)\log q/\log \delta}-nl-1$ assumed that $m_{\textrm{optimal}}\leq nk$. If $nk < m_{\textrm{optimal}}$, then  it is better for the attacker to choose numerically by checking all possible $m$'s from $0$ to $nk$. 
+			
+			% At this point, the Euclidean norm of the shortest vector can be found by the state-of-the-art lattice basis reduction algorithm is at least \begin{equation}\label{k8} L_{\text{min}}:=\min \{q, 2^{2\sqrt{(nl+1) \log q \log \delta}}\}. \end{equation}
+			%	Remark that, if we fix $m$, $n$, $l$, $b$ then the larger $q$ is, the higher success probability of the primal attack. 
+			\item Dual attack: We construct the lattice $\bar{\Lambda}_q=\{(\mathbf{x},\mathbf{y}) \in \mathbb{Z}^{m}\times \mathbb{Z}^{nl}:( \textsf{rot}(\mathbf{A})_{[1:m]})^t \cdot \mathbf{x}=\mathbf{y} \text{ (mod } q)\}$, $m\leq nk$. The attacker first finds a short vector $(\mathbf{x}_0 \| \mathbf{y}_0)$ of Euclidean norm $L$ in $\bar{\Lambda}_q$, i.e.,   $(\textsf{rot}(\mathbf{A})_{[1:m]})^t \cdot \mathbf{x}_0=\mathbf{y}_0 \text{ (mod} q)\}$ then uses it to solve the \textsf{dMLWE} problem as follows by computing $z_0:=\langle \mathbf{x}_0, \textsf{vec}(\mathbf{t})_{[1:m]} \rangle$. In case $(\mathbf{A},\mathbf{t})$ is an \textsf{MLWE} sample, the attacker observes that  \begin{align*}
+			z_0&=\mathbf{x}^t_0\textsf{rot}(\mathbf{A})_{[1:m]}\textsf{vec}(\mathbf{s}_1)+\langle\mathbf{x}_0,\textsf{vec}(\mathbf{s}_2)_{[1:m]})\rangle\\
+			&=\langle(\mathbf{y}_0\|\mathbf{x}_0),(\textsf{vec}(\mathbf{s}_1)\| \textsf{vec}(\mathbf{s}_2)_{[1:m]})\rangle,
+			\end{align*} which behaves like a Gaussian variable by the central limit theorem, since all vectors $\mathbf{y}_0, \mathbf{x}_0, \textsf{vec}(\mathbf{s}_1)$, and $ \textsf{vec}(\mathbf{s}_2)_{[1:m]}$ are short ones whose Euclidean norms are expected to be much smaller than $q$. In contrast, if $(\mathbf{A},\mathbf{t})$ is uniform over $R_q$ then $z_0$ is also uniform modulo $q$. The distinguishing advantage is bounded by 
+			\begin{equation}\label{k5}
+			\varepsilon=4e^{-2\pi^2T^2}, \text{ where } T=L\eta/q.
+			\end{equation}
+			Use BKZ of block size $b$ to search for $(\mathbf{x}_0,\mathbf{y}_0)$, then $L=\delta^{d-1}\cdot q^{nl/d}$ with $d=m+nl$. Thus, we have 
+			\begin{equation}\label{k6}
+			T=L\eta/q=\eta\delta^{d-1}\cdot q^{(nl/d)-1}=\eta\delta^{d-1}\cdot q^{-m/d}.
+			\end{equation}
+			The attacker should choose $m$ such that $L$ is minimum, implying that $m=\sqrt{nl\log q /\log \delta}-nl$ ( and  the smallest $L$ is $\min \{q, 2^{2\sqrt{nl \log q \log \delta}}\}$). However, if $nk < \sqrt{nl\log q /\log \delta}-nl$, then the attacker should choose $m$ numerically as discussed above. 
+			Let $\varepsilon_{\text{max}}$ be the maximal advantage of the dual attacker, then as claimed in \cite[Subsection 4.2.4]{AAB+19}, the attack must be repeated at least $R_{\text{min}}$ times to be successful, where 
+			\begin{equation}\label{k12}
+			R_{\text{min}}=\max \{1, 1/(2^{0.2075b}\varepsilon_{\text{max}}^2)\}.
+			\end{equation}
+			
+			%	Again, if we fix $m$, $n$, $l$, $b$ then the larger $q$, the smaller $T$, hence the higher success probability of the dual attack, according to Equation \eqref{k6}. 
+		\end{itemize}
+		
+		
+		The  specific $\mathsf{MSIS}$ problem $[\mathbf{A}\|\mathbf{I}\|\mathbf{t}]\cdot \mathbf{x}=\mathbf{0}\text{ (mod } q),$ where $\mathbf{A} \leftarrow_{\$} R_q^{k \times l}$, $\mathbf{I} \in R_q^{k \times k}$ a unit matrix, $\mathbf{t} \leftarrow_{\$} R_q^{k}$ and $\Vert \mathbf{x} \Vert_{\infty} \leq \nu:= \max\{2(\gamma_1-\beta), 6\gamma_2+2+60 \cdot 2^d\}$ is the underlying problem for the one-more unforgeability of \textsf{MBS} as shown in Theorem \ref{theo1}. Clearly, an argument similar to the primal attack mentioned above can be applied here except that we replace $\eta$ by $\nu$. 
+		\iffalse
+		Specifically, we consider $[\textsf{rot}(\mathbf{A})_{[1:m]}\|\textsf{rot}(\mathbf{I})_{m}\|\textsf{vec}(\mathbf{t})_{[1:m]}]\cdot \textsf{vec}(\mathbf{x})_{[1:d]}=\mathbf{0}\text{ (mod } q),$ where $\textsf{rot}(\mathbf{A})_{[1:m]} \in \mathbb{Z}_q^{m\times nl}$, $\textsf{rot}(\mathbf{I})_{m} \in \mathbb{Z}_q^{m\times m}$, $\textsf{vec}(\mathbf{t})_{[1:m]}\in \mathbb{Z}_q^{m}$, $\textsf{vec}(\mathbf{x})_{[1:d]}\in \mathbb{Z}_q^{d}$, $d=m+nl+1=\sqrt{(nl+1)\log q/\log \delta}$, and $\Vert\textsf{vec}(\mathbf{x})\Vert_{\infty} \leq \nu:= \max\{2(\gamma_1-\beta), 6\gamma_2+2+60 \cdot 2^d\}$. Also, we need to remember that the bigger $\nu$, the easier \textsf{MSIS}. Same as \eqref{k7}, the attack will be successful if and only if 
+		\begin{equation}\label{k9}
+		\nu \sqrt{b}\leq \delta^{2b-d-1}\cdot q^{m/d}.
+		\end{equation}
+		%Another approach is as follows: The fact $\Vert \mathbf{y}\Vert \leq \sqrt{n} \cdot  \Vert \mathbf{y}\Vert_{\infty}$ for all $\mathbf{y} \in \mathbb{R}^n$ implies that  $\Vert\textsf{vec}(\mathbf{x})\Vert \leq \nu':=\sqrt{nk+nl+1}\cdot \nu$, which make us possible to apply the argument of \cite{MR09} as presented above. 
+		We should choose $n,k,l, \gamma_1, \gamma_2$ and $q$ be such that
+		$$\nu\sqrt{b} >  \max_m ( \delta^{2b-d-1}\cdot q^{m/d}) \text{ obtained at } m=\sqrt{(nl+1)\log q/\log \delta}-nl-1.$$
+		Note that, in our analysis, choosing $m$ in the primal attack and the dual attack quite differs from \cite[Appendix D.3]{DKL+19} in which $m$ is be chosen numerically from $0$ to $nk$. 
+		
+		
+		\subsubsection{Parameters in \textsf{Dilithium}.} In the following, we recall the role of parameters used in \textsf{Dilithium}. For concrete parameters with respect some NIST security level, see Table \ref{tab3}. 
+		
+		\begin{table}[t]
+			
+			\begin{center}
+				%\begin{adjustbox}{max width=\textwidth}
+				%	\resizebox{\textwidth}{!}{
+				\begin{tabular}{ |c|c| c| c| c|} 
+					\hline
+					&&&&\\
+					&\textsf{MBS}&\textsf{MBS}&\textsf{Dilithium}&  \textsf{Dilithium} \\
+					& \textbf{recom.}&\textbf{very high}&\textbf{recom.}&\textbf{very high}\\
+					\hline
+					NIST Security Level&-&1&2&3\\
+					\hline
+					$n$&&&256&256\\
+					$q$&&&$2^{23}-2^{13}+1$&$2^{23}-2^{13}+1$\\
+					
+					$d$&&&14&14\\
+					%	$\kappa$&60&60&60&60\\
+					$\gamma_1$&&&523776&523776\\
+					$\gamma_2$&&&261888&261888\\
+					$(k,l)$&&&(5,4)&(6,5)\\
+					$\eta$&&&5&3\\
+					$\beta$&&&275&175\\
+					$\omega$&&&96&120\\
+					\hline
+					Public key size (bytes)=&&&1472&1760\\
+					$32k(\log q-d)+32$&&&&\\
+					\hline
+					Signature size (bytes)&&&2701&3366\\
+					$32l\log (2\gamma_1) +\omega+k+39$&&&&\\
+					\hline
+					Expectation of repetitions&&&6.6&4.3\\
+					\hline
+					\hline 
+					BKZ (block size-$b$) to break \textsf{SIS}&&&475&605\\
+					\hline 
+					Best Known Classical bit-cost &&&138&176\\
+					$=0.292 \times b$ &&&&\\
+					\hline 
+					Best Known Quantum bit-cost &&&125&160\\
+					$=0.265 \times b$ &&&&\\
+					\hline
+					\hline 
+					BKZ (block size-$b$) to break \textsf{LWE}&&&485&595\\
+					\hline 
+					Best Known Classical bit-cost &&&141&174\\
+					$=0.292 \times b$ &&&&\\
+					\hline 
+					Best Known Quantum bit-cost &&&128&158\\
+					$=0.265 \times b$ &&&&\\
+					\hline
+				\end{tabular} 
+				%}
+				%\end{adjustbox} 
+			\end{center}
+			\caption{Parameter setting for \textsf{Dilithium} \cite{DKL+19}}
+			\label{tab3}
+			
+		\end{table} 
+		
+		
+		\begin{itemize}
+			\item $n,q$: 
+			\item $d$:
+			\item $\kappa$ (weight of $c$):  $\kappa$ is chosen such that $\vert B_{\kappa} \vert\approx 2^{n}$.
+			\item $\gamma_1, \gamma_2$: The requirement of the $\textsf{Decompose}_q$ routine is that $2\gamma_1|(q-1)$. 
+			\item $(k,l)$: Recall that, $k\times l$ is the dimension of the matrix $\mathbb{A}$ in the \textsf{MLWE} problem over $R_q$ which is equivalent to matrix of dimension in a \textsf{LWE} problem $nk\times nl$ over $\mathbb{Z}_q$. We choose $k>l$ for \textsf{LWE} to be well-defined. 
+			\item $\eta$: The parameter $\eta$ is the upper bound of the size of the secret and the error in \textsf{MLWE}
+			\item $\omega$: $\omega$ is the upper bound of $\textsf{HW}(\mathbf{h})$, where $\mathbf{h}$ is the hint from the signer.
+			
+			\item $\beta$: The parameter $\beta$ affects to the expected number of repetitions to have a valid signature. A trivial upper bound of $\beta$ is $\eta\kappa$. 
+			
+		\end{itemize}
+		
+		\fi
+		
+		\fi
+		
+		
+	\end{document}
